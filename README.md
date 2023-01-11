@@ -7,7 +7,7 @@ Unless otherwise stated, all released dashboards will be compatible with new ver
 ## vertica-cluster-overview.json
 * Title: Vertica Overview
 * Description: Provides a general overview of a cluster. This is meant as the initial landing page in Grafana.
-* grafana.com Dashboard ID: 12603
+* grafana.com Dashboard ID: *TBD*
 
 | Revision | Release | Vertica Server (min) | Vertica Server (max) |
 | --- | --- | --- | --- |
@@ -16,7 +16,7 @@ Unless otherwise stated, all released dashboards will be compatible with new ver
 ## vertica-queries.json
 * Title: Vertica Queries
 * Description: Provides detailed information about queries that are running in the cluster.
-* grafana.com Dashboard ID: 12604
+* grafana.com Dashboard ID: *TBD*
 
 | Revision | Release | Vertica Server (min) | Vertica Server (max) |
 | --- | --- | --- | --- |
@@ -25,7 +25,7 @@ Unless otherwise stated, all released dashboards will be compatible with new ver
 ## vertica-resource-management.json
 * Title: Vertica Resource Management
 * Description: Provides insight into the usage of the various resource pools
-* grafana.com Dashboard ID: 12605
+* grafana.com Dashboard ID: *TBD*
 
 | Revision | Release | Vertica Server (min) | Vertica Server (max) |
 | --- | --- | --- | --- |
