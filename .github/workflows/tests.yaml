@@ -1,0 +1,16 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup python environment
+        run: pip install -r tests/requirements.txt
+      - name: Tests
+        run: make test
