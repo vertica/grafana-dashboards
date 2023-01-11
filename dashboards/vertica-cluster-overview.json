@@ -18,35 +18,26 @@
       }
     ]
   },
+  "description": "Provides a general overview of a cluster. This is meant as the initial landing page in Grafana.",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 29,
-  "iteration": 1673023481301,
+  "iteration": 1673448658765,
   "links": [
     {
-      "asDropdown": false,
-      "icon": "dashboard",
-      "includeVars": true,
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Queries Details",
-      "tooltip": "",
-      "type": "link",
-      "url": "/d/queries/queries"
-    },
-    {
-      "asDropdown": false,
-      "icon": "dashboard",
+      "asDropdown": true,
+      "icon": "external link",
       "includeVars": false,
       "keepTime": true,
-      "tags": [],
+      "tags": [
+        "vertica"
+      ],
       "targetBlank": true,
-      "title": "Resource Management",
+      "title": "Dashboards",
       "tooltip": "",
-      "type": "link",
-      "url": "/d/resMan/resource-management"
+      "type": "dashboards",
+      "url": ""
     }
   ],
   "liveNow": false,
@@ -337,7 +328,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": false,
-          "expr": "vertica_build_info{}",
+          "expr": "vertica_build_info{revive_instance_id=~\"$db_name\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -360,7 +351,7 @@
       "type": "stat"
     },
     {
-      "description": "The number of nodes with low disk space available",
+      "description": "The number of nodes with low disk space available for the selected storage usage.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -819,12 +810,12 @@
       "id": 90,
       "options": {
         "colorMode": "none",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -841,8 +832,8 @@
           },
           "exemplar": true,
           "expr": "sum(vertica_queued_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=\"general\"})",
-          "interval": "1m",
-          "legendFormat": "Running",
+          "interval": "",
+          "legendFormat": "Queued",
           "refId": "A"
         }
       ],
@@ -880,12 +871,12 @@
       "id": 55,
       "options": {
         "colorMode": "none",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -901,7 +892,7 @@
           },
           "exemplar": true,
           "expr": "sum(vertica_resource_pool_running_query_count{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=\"general\"})",
-          "interval": "1m",
+          "interval": "",
           "legendFormat": "Running",
           "refId": "A"
         }
@@ -945,8 +936,8 @@
         "allValue": "",
         "current": {
           "selected": false,
-          "text": "v_vertdb_node0001",
-          "value": "v_vertdb_node0001"
+          "text": "All",
+          "value": "$__all"
         },
         "definition": "vertica_total_nodes_count{revive_instance_id=\"$db_name\"}",
         "hide": 0,
@@ -971,7 +962,7 @@
           "text": "All",
           "value": "$__all"
         },
-        "definition": "label_values(pool_name)",
+        "definition": "label_values(vertica_resource_pool_memory_size_actual_kb,pool_name)",
         "hide": 0,
         "includeAll": true,
         "label": "Pool Name",
@@ -979,7 +970,7 @@
         "name": "pool_name",
         "options": [],
         "query": {
-          "query": "label_values(pool_name)",
+          "query": "label_values(vertica_resource_pool_memory_size_actual_kb,pool_name)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -1038,14 +1029,13 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Vertica Overview",
-  "description": "Provides a general overview of a cluster. This is meant as the initial landing page in Grafana.",
   "uid": "vertica-cluster-overview",
-  "version": 21,
+  "version": 34,
   "weekStart": ""
 }
