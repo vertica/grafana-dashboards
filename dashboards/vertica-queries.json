@@ -18,11 +18,12 @@
       }
     ]
   },
+  "description": "Provides detailed information about queries that are running in the cluster.",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 30,
-  "iteration": 1673024461556,
+  "iteration": 1673448324324,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -133,8 +134,12 @@
       "id": 14,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
           "placement": "bottom"
         },
         "tooltip": {
@@ -148,7 +153,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "sum(increase(vertica_query_requests_succeeded_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[1m]))",
+          "expr": "sum(increase(vertica_query_requests_succeeded_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[5m]))",
           "interval": "1m",
           "legendFormat": "Attempted",
           "refId": "A"
@@ -217,8 +222,12 @@
       "id": 15,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
+          "calcs": [
+            "min",
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
           "placement": "bottom"
         },
         "tooltip": {
@@ -335,10 +344,12 @@
       "options": {
         "legend": {
           "calcs": [
-            "lastNotNull"
+            "min",
+            "max",
+            "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "bottom"
         },
         "tooltip": {
           "mode": "single"
@@ -466,10 +477,12 @@
       "options": {
         "legend": {
           "calcs": [
-            "lastNotNull"
+            "min",
+            "max",
+            "mean"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "bottom"
         },
         "tooltip": {
           "mode": "single"
@@ -482,7 +495,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "sum(increase(vertica_resource_pool_running_query_count{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\"}[5m])) or on() vector(0)",
+          "expr": "sum(vertica_resource_pool_running_query_count{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\"}) or on() vector(0)",
           "interval": "",
           "legendFormat": "Running",
           "refId": "A"
@@ -493,7 +506,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "sum(increase(vertica_queued_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\"}[5m])) or on() vector(0)",
+          "expr": "sum(vertica_queued_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\"}) or on() vector(0)",
           "hide": false,
           "interval": "",
           "legendFormat": "Queued",
@@ -896,7 +909,7 @@
           "text": "All",
           "value": "$__all"
         },
-        "definition": "label_values(pool_name)",
+        "definition": "label_values(vertica_resource_pool_memory_size_actual_kb,pool_name)",
         "hide": 0,
         "includeAll": true,
         "label": "Pool Name",
@@ -904,7 +917,7 @@
         "name": "pool_name",
         "options": [],
         "query": {
-          "query": "label_values(pool_name)",
+          "query": "label_values(vertica_resource_pool_memory_size_actual_kb,pool_name)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -939,14 +952,13 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Vertica Queries",
-  "description": "Provides detailed information about queries that are running in the cluster.",
   "uid": "vertica-queries",
-  "version": 11,
+  "version": 19,
   "weekStart": ""
 }

@@ -18,11 +18,12 @@
       }
     ]
   },
+  "description": "Provides insight into the usage of the various resource pools",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 34,
-  "iteration": 1673022499430,
+  "iteration": 1673448721394,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -72,6 +73,7 @@
       "type": "row"
     },
     {
+      "description": "The preferred number of queries that execute concurrently in this resource pool.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -94,7 +96,7 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 4,
+        "w": 6,
         "x": 0,
         "y": 3
       },
@@ -131,6 +133,7 @@
       "type": "stat"
     },
     {
+      "description": "The maximum number of concurrent execution slots available to the resource pool.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -153,8 +156,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 4,
-        "x": 4,
+        "w": 6,
+        "x": 6,
         "y": 3
       },
       "id": 12,
@@ -190,6 +193,7 @@
       "type": "stat"
     },
     {
+      "description": "Value assigned as the maximum size (in MegaBytes) this resource pool can grow by borrowing memory from the GENERAL pool.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -206,14 +210,14 @@
               }
             ]
           },
-          "unit": "deckbytes"
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 3,
-        "w": 4,
-        "x": 8,
+        "w": 6,
+        "x": 12,
         "y": 3
       },
       "id": 14,
@@ -239,16 +243,77 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "avg(vertica_resource_pool_max_memory_size_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
+          "expr": "avg(vertica_resource_pool_max_memory_size_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}) / 1024",
           "interval": "",
           "legendFormat": "Maximum Memory",
           "refId": "A"
         }
       ],
-      "title": "Maximum Memory",
+      "title": "Maximum Memory (MB)",
       "type": "stat"
     },
     {
+      "description": "The maximum amount of memory allocated by this pool to process any query. Value, in MegaBytes, of the MAXQUERYMEMORYSIZE parameter as defined for the pool.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#5004ee",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 18,
+        "y": 3
+      },
+      "id": 46,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "(avg(vertica_resource_pool_max_query_memory_size_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}) / 1024) > 0 or on() vector(0)",
+          "interval": "",
+          "legendFormat": "Maximum Query Memory",
+          "refId": "A"
+        }
+      ],
+      "title": "Maximum Query Memory (MB)",
+      "type": "stat"
+    },
+    {
+      "description": "Specifies priority of queries in this pool when they compete for resources in the GENERAL pool.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -271,9 +336,9 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 4,
-        "x": 12,
-        "y": 3
+        "w": 6,
+        "x": 0,
+        "y": 6
       },
       "id": 15,
       "options": {
@@ -308,6 +373,7 @@
       "type": "stat"
     },
     {
+      "description": "Limits in seconds how soon a query must finish before the Resource Manager assigns to it the resource pool's RUNTIMEPRIORITY setting.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -330,9 +396,9 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 4,
-        "x": 16,
-        "y": 3
+        "w": 6,
+        "x": 6,
+        "y": 6
       },
       "id": 16,
       "options": {
@@ -367,6 +433,7 @@
       "type": "stat"
     },
     {
+      "description": "The maximum length of time requests can wait for resources to become available before being rejected",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -389,9 +456,9 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 4,
-        "x": 20,
-        "y": 3
+        "w": 6,
+        "x": 12,
+        "y": 6
       },
       "id": 17,
       "options": {
@@ -431,14 +498,15 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 6
+        "y": 9
       },
       "id": 5,
       "panels": [],
-      "title": "Current Pool Usage Activity",
+      "title": "Current Pool Usage Activity (in average per node)",
       "type": "row"
     },
     {
+      "description": "The average number of queries per node currently executing in the pool.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -461,9 +529,9 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 4,
+        "w": 6,
         "x": 0,
-        "y": 7
+        "y": 10
       },
       "id": 2,
       "options": {
@@ -488,7 +556,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "avg(avg_over_time(vertica_resource_pool_running_query_count{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}[5m]))",
+          "expr": "avg(vertica_resource_pool_running_query_count{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "Average Running Query Count",
@@ -499,6 +567,7 @@
       "type": "stat"
     },
     {
+      "description": "The average amount of borrowed memory, per node, from the GENERAL pool by requests running against the pool.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -521,9 +590,9 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 4,
-        "x": 4,
-        "y": 7
+        "w": 6,
+        "x": 6,
+        "y": 10
       },
       "id": 34,
       "options": {
@@ -548,7 +617,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "sum(vertica_resource_pool_general_memory_borrowed_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}) / (sum(vertica_resource_pool_running_query_count{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}) > 0 or on() vector(1))",
+          "expr": "avg(vertica_resource_pool_general_memory_borrowed_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "Avg. General Memory",
@@ -559,6 +628,7 @@
       "type": "stat"
     },
     {
+      "description": "The average amount of memory per node,  for all queued requests in the pool.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -581,9 +651,9 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 4,
-        "x": 8,
-        "y": 7
+        "w": 6,
+        "x": 12,
+        "y": 10
       },
       "id": 35,
       "options": {
@@ -608,7 +678,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "sum(vertica_queued_requests_total_memory_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}) / (sum(vertica_queued_requests_total{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}) > 0 or on() vector(1))",
+          "expr": "avg(vertica_queued_requests_total_memory_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "Avg.  Memory for Queued Requests",
@@ -619,6 +689,7 @@
       "type": "stat"
     },
     {
+      "description": "When the amount of memory (in MegaBytes) used by all requests against this resource pool exceeds this, new requests against the pool are queued until memory becomes available.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -635,15 +706,15 @@
               }
             ]
           },
-          "unit": "deckbytes"
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 3,
-        "w": 4,
-        "x": 12,
-        "y": 7
+        "w": 6,
+        "x": 18,
+        "y": 10
       },
       "id": 3,
       "options": {
@@ -668,17 +739,78 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "sum(vertica_resource_pool_queueing_threshold_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
+          "expr": "avg(vertica_resource_pool_queueing_threshold_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}) / 1024",
           "hide": false,
           "interval": "",
           "legendFormat": "Queueing Threshold",
           "refId": "B"
         }
       ],
-      "title": "Queueing Threshold",
+      "title": "Queueing Threshold (MB)",
       "type": "stat"
     },
     {
+      "description": "Percentage of memory used in a pool.",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "#47e9c6",
+                "value": null
+              },
+              {
+                "color": "#cf17cb",
+                "value": 60
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 0,
+        "y": 13
+      },
+      "id": 55,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "100 * sum(vertica_resource_pool_memory_inuse_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}) / sum(vertica_resource_pool_max_memory_size_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
+          "interval": "",
+          "legendFormat": "Memory Used %",
+          "refId": "A"
+        }
+      ],
+      "title": "Memory Used %",
+      "type": "gauge"
+    },
+    {
+      "description": "The current amount of memory (in MegaBytes) that queries are tuned to use in the pool.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -695,15 +827,15 @@
               }
             ]
           },
-          "unit": "deckbytes"
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 3,
-        "w": 4,
-        "x": 16,
-        "y": 7
+        "w": 6,
+        "x": 6,
+        "y": 13
       },
       "id": 7,
       "options": {
@@ -728,13 +860,13 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "avg(vertica_resource_pool_query_budget_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}>=0) or vector(0)",
+          "expr": "avg(vertica_resource_pool_query_budget_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}>=0) / 1024 or vector(0)",
           "interval": "",
           "legendFormat": "Avg. Query Budget",
           "refId": "A"
         }
       ],
-      "title": "Avg. Query Budget",
+      "title": "Avg. Query Budget (MB)",
       "type": "stat"
     },
     {
@@ -743,14 +875,15 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 16
       },
       "id": 23,
       "panels": [],
-      "title": "Resource Pool Statistics",
+      "title": "Resource Pool Statistics (in average per node)",
       "type": "row"
     },
     {
+      "description": "This shows how the Max Memory, Pool Memory and Free Memory in the pool change over time. Each of the values is an average per node.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -785,6 +918,7 @@
             }
           },
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -829,14 +963,29 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Average Free Memory"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#0ce2ad",
+                  "mode": "fixed"
+                }
+              }
+            ]
           }
         ]
       },
       "gridPos": {
-        "h": 6,
+        "h": 5,
         "w": 12,
         "x": 0,
-        "y": 11
+        "y": 17
       },
       "id": 19,
       "options": {
@@ -872,12 +1021,25 @@
           "interval": "",
           "legendFormat": "Pool Memory Size",
           "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "avg(vertica_resource_pool_max_memory_size_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}) - avg(vertica_resource_pool_memory_inuse_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Average Free Memory",
+          "refId": "C"
         }
       ],
       "title": "Resource Usages",
       "type": "timeseries"
     },
     {
+      "description": "The time it takes in average for the execution of a single query.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -912,6 +1074,7 @@
             }
           },
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -946,10 +1109,10 @@
         ]
       },
       "gridPos": {
-        "h": 6,
+        "h": 5,
         "w": 12,
         "x": 12,
-        "y": 11
+        "y": 17
       },
       "id": 21,
       "options": {
@@ -979,6 +1142,7 @@
       "type": "timeseries"
     },
     {
+      "description": "Shows  the variation of resource rejections over time. ",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1046,10 +1210,10 @@
         ]
       },
       "gridPos": {
-        "h": 6,
+        "h": 5,
         "w": 12,
         "x": 0,
-        "y": 17
+        "y": 22
       },
       "id": 33,
       "options": {
@@ -1069,7 +1233,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "sum(vertica_resource_rejections_total{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}) or on() vector(0)",
+          "expr": "sum(increase(vertica_resource_rejections_total{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}[5m])) or on() vector(0)",
           "interval": "",
           "legendFormat": "Resource Rejections",
           "refId": "A"
@@ -1079,19 +1243,369 @@
       "type": "timeseries"
     },
     {
+      "description": "The average number of running queries over time.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Average Number of Running Queries"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#0ec4c1",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 12,
+        "y": 22
+      },
+      "id": 45,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "avg(vertica_resource_pool_running_query_count{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
+          "interval": "",
+          "legendFormat": "Average Number of Running Queries",
+          "refId": "A"
+        }
+      ],
+      "title": "Average Number of Running Queries",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
+      "id": 51,
+      "panels": [
+        {
+          "description": "This table is a summary of resource usage for all nodes. With this you can get information about Pool Size, Max Memory... for each node. It is a complement to other panels that give averages per node. It captures just the last values.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 24,
+            "x": 0,
+            "y": 12
+          },
+          "id": 49,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "8.3.6",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
+              "exemplar": false,
+              "expr": "sum by(pool_name,node_name) (vertica_resource_pool_max_memory_size_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"} / 1024)",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "{{node_name}}.{{pool_name}}",
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
+              "exemplar": false,
+              "expr": "sum by(pool_name,node_name) (vertica_resource_pool_memory_size_actual_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"} / 1024)",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "legendFormat": "{{node_name}}.{{pool_name}}",
+              "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
+              "exemplar": false,
+              "expr": "sum by(pool_name,node_name)(vertica_resource_pool_running_query_count{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "legendFormat": "{{node_name}}.{{pool_name}}",
+              "refId": "C"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
+              "exemplar": false,
+              "expr": "sum by(pool_name,node_name)(\r\n\tvertica_queued_requests_total{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "D"
+            }
+          ],
+          "title": "Resource Uage Details by all Nodes",
+          "transformations": [
+            {
+              "id": "merge",
+              "options": {}
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "endpoint": true,
+                  "instance": true,
+                  "job": true,
+                  "namespace": true,
+                  "pod": true,
+                  "revive_instance_id": true,
+                  "service": true,
+                  "subcluster_oid": true
+                },
+                "indexByName": {
+                  "Time": 0,
+                  "Value #A": 12,
+                  "Value #B": 11,
+                  "endpoint": 1,
+                  "instance": 2,
+                  "job": 3,
+                  "namespace": 4,
+                  "node_name": 6,
+                  "pod": 7,
+                  "pool_name": 5,
+                  "revive_instance_id": 8,
+                  "service": 9,
+                  "subcluster_oid": 10
+                },
+                "renameByName": {
+                  "Value #A": "Maximum Memory(MB)",
+                  "Value #B": "Pool Size(MB)",
+                  "Value #C": "Running Queries",
+                  "Value #D": "Queued Queries",
+                  "node_name": "Node Name",
+                  "pool_name": "Pool Name"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "description": "This table is a summary of resource rejection for all nodes. With this you can get the resource rejection count for each node. It captures just the last values for each node.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Resource Rejections"
+                },
+                "properties": [
+                  {
+                    "id": "color",
+                    "value": {
+                      "fixedColor": "#ad0ea8",
+                      "mode": "fixed"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 24,
+            "x": 0,
+            "y": 17
+          },
+          "id": 52,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "8.3.6",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
+              "exemplar": false,
+              "expr": "sum by(node_name,pool_name)(increase(vertica_resource_rejections_total{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}[5m])) or on() vector(0)",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "Resource Rejections",
+              "refId": "A"
+            }
+          ],
+          "title": "Resource Rejection Details",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {},
+                "indexByName": {},
+                "renameByName": {
+                  "Value": "Rejection Counts",
+                  "node_name": "Node Name",
+                  "request_type": ""
+                }
+              }
+            }
+          ],
+          "type": "table"
+        }
+      ],
+      "title": "Summary Tables",
+      "type": "row"
+    },
+    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 28
       },
       "id": 27,
       "panels": [],
-      "title": "Disk Storage",
+      "title": "Disk Storage Activity",
       "type": "row"
     },
     {
+      "description": "Given a selected node, it displays the disk storage in total for each storage usage.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1114,9 +1628,9 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 11,
+        "w": 12,
         "x": 0,
-        "y": 24
+        "y": 29
       },
       "id": 29,
       "options": {
@@ -1141,16 +1655,17 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "sum by(storage_usage) (vertica_disk_storage_total_mb{node_name=~\"$node_name\"})",
+          "expr": "sum by(storage_usage) (vertica_disk_storage_total_mb{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
           "interval": "",
           "legendFormat": "{{storage_usage}}",
           "refId": "A"
         }
       ],
-      "title": "Total Disk Storage",
+      "title": "Total Disk Storage on node $node_name",
       "type": "stat"
     },
     {
+      "description": "Given a selected node, it displays the current disk storage usage for each storage usage.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1173,9 +1688,9 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 11,
-        "x": 11,
-        "y": 24
+        "w": 12,
+        "x": 12,
+        "y": 29
       },
       "id": 44,
       "options": {
@@ -1200,16 +1715,17 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "sum by(storage_usage)(vertica_disk_storage_used_mb{node_name=~\"$node_name\"})",
+          "expr": "sum by(storage_usage)(vertica_disk_storage_used_mb{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
           "interval": "",
           "legendFormat": "{{storage_usage}}",
           "refId": "A"
         }
       ],
-      "title": "Disk Storage Used",
+      "title": "Disk Storage Used on node $node_name",
       "type": "stat"
     },
     {
+      "description": "Given a selected node, it displays the percentage of current disk storage available for each storage usage.",
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -1234,9 +1750,9 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 11,
+        "w": 12,
         "x": 0,
-        "y": 28
+        "y": 33
       },
       "id": 25,
       "options": {
@@ -1259,13 +1775,13 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "sum by(storage_usage) (vertica_disk_storage_free_percent{node_name=~\"$node_name\"})",
+          "expr": "sum by(storage_usage) (vertica_disk_storage_free_percent{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
           "interval": "",
           "legendFormat": "{{storage_usage}}",
           "refId": "A"
         }
       ],
-      "title": "Disk Storage Available",
+      "title": "Disk Storage Available on node $node_name",
       "type": "gauge"
     },
     {
@@ -1274,7 +1790,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 37
       },
       "id": 41,
       "panels": [],
@@ -1282,6 +1798,7 @@
       "type": "row"
     },
     {
+      "description": "Measures each storage location's performance in MB/s.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1383,7 +1900,7 @@
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 33
+        "y": 38
       },
       "id": 37,
       "options": {
@@ -1403,16 +1920,17 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "sum by(storage_usage) (vertica_disk_storage_throughput_mb_per_second{node_name=~\"$node_name\"})",
+          "expr": "sum by(storage_usage) (vertica_disk_storage_throughput_mb_per_second{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
           "interval": "",
           "legendFormat": "{{storage_usage}}",
           "refId": "A"
         }
       ],
-      "title": "Throughput in MB/sec",
+      "title": "Throughput in MB/sec on node $node_name",
       "type": "timeseries"
     },
     {
+      "description": "Measures each storage location's performance in seeks/s.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1510,7 +2028,7 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 33
+        "y": 38
       },
       "id": 39,
       "options": {
@@ -1530,16 +2048,17 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "sum by(storage_usage)(vertica_disk_storage_latency_seek_per_second{node_name=~\"$node_name\"})",
+          "expr": "sum by(storage_usage)(vertica_disk_storage_latency_seek_per_second{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
           "interval": "",
           "legendFormat": "{{storage_usage}}",
           "refId": "A"
         }
       ],
-      "title": "Latency in seeks/sec",
+      "title": "Latency in seeks/sec on node $node_name",
       "type": "timeseries"
     },
     {
+      "description": "The percentage of disk space used for each storage usage, over time.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1582,39 +2101,11 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
         },
         "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "CATALOG"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          },
           {
             "matcher": {
               "id": "byName",
@@ -1666,7 +2157,7 @@
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 39
+        "y": 44
       },
       "id": 43,
       "options": {
@@ -1686,13 +2177,13 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "100 - sum by(storage_usage) (vertica_disk_storage_free_percent{node_name=~\"$node_name\"})",
+          "expr": "100 - sum by(storage_usage) (vertica_disk_storage_free_percent{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
           "interval": "",
           "legendFormat": "{{storage_usage}}",
           "refId": "A"
         }
       ],
-      "title": "Disk Space Used Percentage",
+      "title": "Disk Space Used Percentage on node $node_name",
       "type": "timeseries"
     }
   ],
@@ -1751,11 +2242,11 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "general",
           "value": "general"
         },
-        "definition": "label_values(pool_name)",
+        "definition": "label_values(vertica_resource_pool_memory_size_actual_kb,pool_name)",
         "hide": 0,
         "includeAll": false,
         "label": "Pool Name",
@@ -1763,7 +2254,7 @@
         "name": "pool_name",
         "options": [],
         "query": {
-          "query": "label_values(pool_name)",
+          "query": "label_values(vertica_resource_pool_memory_size_actual_kb,pool_name)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -1775,14 +2266,13 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Vertica Resource Management",
-  "description": "Provides insight into the usage of the various resource pools",
   "uid": "vertica-resource-management",
-  "version": 16,
+  "version": 34,
   "weekStart": ""
 }
