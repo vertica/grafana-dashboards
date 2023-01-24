@@ -23,7 +23,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 29,
-  "iteration": 1673448658765,
+  "iteration": 1674486395045,
   "links": [
     {
       "asDropdown": true,
@@ -425,7 +425,7 @@
               }
             ]
           },
-          "unit": "decmbytes"
+          "unit": "mbytes"
         },
         "overrides": []
       },
@@ -530,15 +530,16 @@
         "defaults": {
           "color": {
             "fixedColor": "light-blue",
-            "mode": "continuous-greens"
+            "mode": "fixed"
           },
           "mappings": [],
+          "min": 0,
           "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "dark-blue",
                 "value": null
               }
             ]
@@ -563,12 +564,12 @@
       ],
       "options": {
         "colorMode": "none",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -583,7 +584,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "sum(vertica_query_requests_attempted_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}) ",
+          "expr": "sum(increase(vertica_query_requests_attempted_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
@@ -595,14 +596,15 @@
       "type": "stat"
     },
     {
-      "description": "The number of processed queries rows.",
+      "description": "The number of processed queries rows over the selected time range.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "#80808000",
-            "mode": "continuous-greens"
+            "fixedColor": "super-light-blue",
+            "mode": "fixed"
           },
           "mappings": [],
+          "min": 0,
           "noValue": "0",
           "thresholds": {
             "mode": "absolute",
@@ -626,12 +628,12 @@
       "id": 30,
       "options": {
         "colorMode": "none",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -646,7 +648,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "sum(vertica_query_requests_processed_rows_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"})",
+          "expr": "sum(increase(vertica_query_requests_processed_rows_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
           "interval": "",
           "legendFormat": "processed rows",
           "refId": "A"
@@ -661,9 +663,10 @@
         "defaults": {
           "color": {
             "fixedColor": "#4ba68a",
-            "mode": "continuous-greens"
+            "mode": "fixed"
           },
           "mappings": [],
+          "min": 0,
           "noValue": "0",
           "thresholds": {
             "mode": "absolute",
@@ -687,12 +690,12 @@
       "id": 107,
       "options": {
         "colorMode": "none",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -708,7 +711,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": false,
-          "expr": "sum(vertica_query_requests_succeeded_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"})",
+          "expr": "sum(increase(vertica_query_requests_succeeded_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
           "interval": "",
           "legendFormat": "Completed",
           "refId": "A"
@@ -718,12 +721,12 @@
       "type": "stat"
     },
     {
-      "description": "The number of failed query requests.",
+      "description": "The number of failed query requests over the selected time range.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "fixedColor": "#e02fb6",
-            "mode": "continuous-greens"
+            "mode": "fixed"
           },
           "mappings": [],
           "noValue": "0",
@@ -749,17 +752,19 @@
       "id": 53,
       "options": {
         "colorMode": "none",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
         },
-        "text": {},
+        "text": {
+          "valueSize": 0
+        },
         "textMode": "auto"
       },
       "pluginVersion": "8.3.6",
@@ -770,7 +775,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": false,
-          "expr": "sum(vertica_query_requests_failed_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"})",
+          "expr": "sum(increase(vertica_query_requests_failed_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
           "interval": "",
           "legendFormat": "Completed",
           "refId": "A"
@@ -784,7 +789,8 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "continuous-greens"
+            "fixedColor": "#0ad595",
+            "mode": "fixed"
           },
           "mappings": [],
           "noValue": "0",
@@ -845,7 +851,8 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "continuous-greens"
+            "fixedColor": "#9d06c4",
+            "mode": "fixed"
           },
           "mappings": [],
           "noValue": "0",
@@ -912,8 +919,8 @@
       {
         "current": {
           "selected": false,
-          "text": "vertdb (created/revived@2023-01-02 13:28:20)",
-          "value": "094fc62e2e3ab39c305425fc5b69b9"
+          "text": "vertdb (created/revived@2023-01-23 14:31:58)",
+          "value": "a73caa3628e3b25b5078f73454331e"
         },
         "definition": "vertica_db_info",
         "hide": 0,
@@ -1036,6 +1043,6 @@
   "timezone": "",
   "title": "Vertica Overview",
   "uid": "vertica-cluster-overview",
-  "version": 34,
+  "version": 3,
   "weekStart": ""
 }

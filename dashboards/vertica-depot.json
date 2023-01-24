@@ -1,0 +1,1768 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "description": "Provides insight into the usage of the depot",
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 32,
+    "iteration": 1674590312673,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "vertica-grafana-datasource",
+          "uid": "US_55Cc4z"
+        },
+        "gridPos": {
+          "h": 2,
+          "w": 4,
+          "x": 0,
+          "y": 0
+        },
+        "id": 45,
+        "links": [],
+        "options": {
+          "content": "<img src=\"https://www.vertica.com/wp-content/uploads/2017/09/vertica_wht_rgb@2x.png\"/>",
+          "mode": "html"
+        },
+        "pluginVersion": "8.3.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "vertica-grafana-datasource",
+              "uid": "US_55Cc4z"
+            },
+            "format": "time_series",
+            "rawSql": "SELECT \n$__time(end_time), \naverage_cpu_usage_percent \nFROM \nv_monitor.cpu_usage \nWHERE \n$__timeFilter(end_time)",
+            "refId": "A"
+          }
+        ],
+        "transparent": true,
+        "type": "text"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 2
+        },
+        "id": 10,
+        "panels": [],
+        "title": "Current Depot Usage",
+        "type": "row"
+      },
+      {
+        "description": "Total depot space currently in use, on all nodes in the database added together.",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "#bc0d97",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 5,
+          "x": 0,
+          "y": 3
+        },
+        "id": 68,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.3.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "sum(sum by(node_name) (vertica_depot_fetch_queue_size{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}))",
+            "interval": "",
+            "legendFormat": "Depot's Fetch Queue",
+            "refId": "A"
+          }
+        ],
+        "title": "Depot's Fetch Queue",
+        "type": "stat"
+      },
+      {
+        "description": "Lists the number of bytes in the depot and percentage used, for each node in the database.",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "displayMode": "auto"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 18,
+          "x": 5,
+          "y": 3
+        },
+        "id": 15,
+        "options": {
+          "footer": {
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "frameIndex": 1,
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Value #A"
+            }
+          ]
+        },
+        "pluginVersion": "8.3.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": false,
+            "expr": "sum by(node_name) (vertica_disk_storage_used_mb{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",storage_usage=~\"DEPOT\"})",
+            "format": "table",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": false,
+            "expr": "sum by(node_name) (100 - vertica_disk_storage_free_percent{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",storage_usage=~\"DEPOT\"})",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "",
+            "refId": "B"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": false,
+            "expr": "sum by(node_name,subcluster_name)(vertica_subcluster_info{revive_instance_id=\"$db_name\",node_name=~\"$node_name\"})",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "",
+            "refId": "C"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": false,
+            "expr": "sum by(node_name) (vertica_depot_fetch_queue_size{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "",
+            "refId": "D"
+          }
+        ],
+        "title": "Usage by Node",
+        "transformations": [
+          {
+            "id": "merge",
+            "options": {}
+          },
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": false,
+                "Value #A": false,
+                "Value #C": true
+              },
+              "indexByName": {
+                "Time": 0,
+                "Value #A": 3,
+                "Value #B": 4,
+                "Value #C": 5,
+                "node_name": 2,
+                "subcluster_name": 1
+              },
+              "renameByName": {
+                "Value #A": "Usage(MB)",
+                "Value #B": "Usage(%)",
+                "Value #D": "#Files in Queue",
+                "node_name": "Node Name",
+                "subcluster_name": "Subcluster Name",
+                "subcluster_oid": ""
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "description": "Total depot space currently in use, on all nodes in the database added together.",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "#8715a3",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 5,
+          "x": 0,
+          "y": 6
+        },
+        "id": 67,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.3.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "sum(sum by(node_name) (vertica_depot_size_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}))",
+            "interval": "",
+            "legendFormat": "Depot in Use",
+            "refId": "A"
+          }
+        ],
+        "title": "Depot in Use",
+        "type": "stat"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 9
+        },
+        "id": 64,
+        "panels": [],
+        "title": "Depot Lookup Hits",
+        "type": "row"
+      },
+      {
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "light-purple",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 5,
+          "x": 0,
+          "y": 10
+        },
+        "id": 75,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.3.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "(sum(increase(vertica_depot_lookup_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range])))",
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "title": "Look up Requests",
+        "type": "stat"
+      },
+      {
+        "description": "Percentage of cache hit when finding a file in the depot.",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "max": 100,
+            "min": 0,
+            "noValue": "No Attempts",
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "#e0088a",
+                  "value": null
+                },
+                {
+                  "color": "#d338eb",
+                  "value": 30
+                },
+                {
+                  "color": "#38ebdb",
+                  "value": 60
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 4,
+          "x": 5,
+          "y": 10
+        },
+        "id": 46,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "8.3.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "100 *(sum(increase(vertica_depot_lookup_hits_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range]))) / (sum(increase(vertica_depot_lookup_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range])))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Hits %",
+            "refId": "B"
+          }
+        ],
+        "title": "Depot Lookup Hits %",
+        "type": "gauge"
+      },
+      {
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "light-purple",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 5,
+          "x": 0,
+          "y": 13
+        },
+        "id": 76,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.3.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "(sum(increase(vertica_depot_lookup_hits_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range])))",
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "title": "Look up Hits",
+        "type": "stat"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 16
+        },
+        "id": 19,
+        "panels": [],
+        "title": "Depots Fetches and Evictions",
+        "type": "row"
+      },
+      {
+        "description": "The total number of depot fetches during select time range.",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-blue",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 4,
+          "x": 0,
+          "y": 17
+        },
+        "id": 59,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "last"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.3.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "sum(increase(vertica_depot_fetches_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",source=\"communal\"}[$__range])) ",
+            "interval": "",
+            "legendFormat": "Attempted",
+            "refId": "A"
+          }
+        ],
+        "title": "Attempted Depot Fetches",
+        "type": "stat"
+      },
+      {
+        "description": "Shows how the fetches and eviction sizes increase over time. Each point refers to the increase over the past 5 min.",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Fetches"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "#0cd083",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Evictions"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "#da0899",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 10,
+          "x": 4,
+          "y": 17
+        },
+        "id": 8,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "sum(increase((vertica_depot_fetches_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",source=\"communal\"}[5m]))) ",
+            "interval": "",
+            "legendFormat": "Fetches",
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "sum(increase(vertica_depot_evictions_bytes{node_name=~\"$node_name\"}[5m]))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Evictions",
+            "refId": "B"
+          }
+        ],
+        "title": "Completed Depot Fetches and Evictions",
+        "type": "timeseries"
+      },
+      {
+        "cards": {},
+        "color": {
+          "cardColor": "#005eff",
+          "colorScale": "sqrt",
+          "colorScheme": "interpolateOranges",
+          "exponent": 0.5,
+          "mode": "opacity"
+        },
+        "dataFormat": "tsbuckets",
+        "description": "Shows the number of new depot fetches, for each bucket, over time.",
+        "gridPos": {
+          "h": 6,
+          "w": 10,
+          "x": 14,
+          "y": 17
+        },
+        "heatmap": {},
+        "hideZeroBuckets": true,
+        "highlightCards": true,
+        "id": 62,
+        "interval": "1m",
+        "legend": {
+          "show": false
+        },
+        "maxDataPoints": 25,
+        "pluginVersion": "8.3.6",
+        "reverseYBuckets": false,
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": false,
+            "expr": "sum by (le) (increase(vertica_depot_fetches_ms_bucket{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",source=\"communal\"}[$__interval]))",
+            "format": "heatmap",
+            "instant": false,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{le}}",
+            "refId": "A"
+          }
+        ],
+        "title": "Depot Fetches Time Distribution",
+        "tooltip": {
+          "show": true,
+          "showHistogram": false
+        },
+        "transformations": [],
+        "type": "heatmap",
+        "xAxis": {
+          "show": true
+        },
+        "yAxis": {
+          "format": "dtdurationms",
+          "logBase": 1,
+          "show": true
+        },
+        "yBucketBound": "upper"
+      },
+      {
+        "description": "Percentage of failed depot fetches during the selected time range.",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "#0bcea3",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "min": 0,
+            "noValue": "No Fetches",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 4,
+          "x": 0,
+          "y": 20
+        },
+        "id": 60,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "last"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.3.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "100 * (sum(increase(vertica_depot_fetches_failures_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",source=\"communal\"}[$__range])) / sum(increase(vertica_depot_fetches_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",source=\"communal\"}[$__range])) )",
+            "interval": "",
+            "legendFormat": "Failed Fetches %",
+            "refId": "A"
+          }
+        ],
+        "title": "Failed Fetches %",
+        "type": "stat"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 23
+        },
+        "id": 21,
+        "panels": [],
+        "title": "Running/Queued Uploads from Depot to Communal",
+        "type": "row"
+      },
+      {
+        "description": "Shows the number of requests currently uploading a file to communal storage through the depot.",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "light-blue",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 4,
+          "x": 0,
+          "y": 24
+        },
+        "id": 47,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.3.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "sum(vertica_depot_uploads_in_progress_counter{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
+            "interval": "",
+            "legendFormat": "Uploads in Progress",
+            "refId": "A"
+          }
+        ],
+        "title": "Uploads in Progress",
+        "type": "stat"
+      },
+      {
+        "description": "Shows the number of bytes in running requests that are uploading a file to communal storage through the depot.",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "light-blue",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 4,
+          "x": 4,
+          "y": 24
+        },
+        "id": 48,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.3.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "sum(vertica_depot_uploads_in_progress_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
+            "interval": "",
+            "legendFormat": "Uploads in Progress Bytes",
+            "refId": "A"
+          }
+        ],
+        "title": "Uploads in Progress's Size",
+        "type": "stat"
+      },
+      {
+        "description": "Shows the number of running/queued uploads over time.",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 10,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "smooth",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Running"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "dark-blue",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Queued"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "semi-dark-purple",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 16,
+          "x": 8,
+          "y": 24
+        },
+        "id": 52,
+        "options": {
+          "legend": {
+            "calcs": [
+              "min",
+              "max",
+              "mean"
+            ],
+            "displayMode": "table",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "sum(vertica_depot_uploads_in_progress_counter{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or on() vector(0)",
+            "interval": "",
+            "legendFormat": "Running",
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "sum(vertica_depot_uploads_queued_counter{revive_instance_id=~\"$db_name\"}) or on() vector(0)",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Queued",
+            "refId": "B"
+          }
+        ],
+        "title": "Running/Queued Uploads",
+        "type": "timeseries"
+      },
+      {
+        "description": "Shows the number of queued requests to upload a file to communal storage through the depot.",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "light-purple",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 4,
+          "x": 0,
+          "y": 27
+        },
+        "id": 49,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.3.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "sum(vertica_depot_uploads_queued_counter{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
+            "interval": "",
+            "legendFormat": "Queued Uploads",
+            "refId": "A"
+          }
+        ],
+        "title": "Queued Uploads",
+        "type": "stat"
+      },
+      {
+        "description": "Shows the number of bytes in queued requests to upload a file to communal storage through the depot.",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "light-purple",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 4,
+          "x": 4,
+          "y": 27
+        },
+        "id": 50,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.3.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "sum(vertica_depot_uploads_queued_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
+            "interval": "",
+            "legendFormat": "Queued Uploads Bytes",
+            "refId": "A"
+          }
+        ],
+        "title": "Queued Uploads' Size",
+        "type": "stat"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 30
+        },
+        "id": 54,
+        "panels": [],
+        "title": "Uploads from Depot to Communal",
+        "type": "row"
+      },
+      {
+        "description": "Shows the number of attempted depot uploads.\n\nOnly counted if UseDepotForWrites is enabled. Metric mirrors the dc_depot_uploads table.",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-blue",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 4,
+          "x": 0,
+          "y": 31
+        },
+        "id": 23,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "diff"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.3.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "sum(vertica_depot_uploads_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or on() vector(0)",
+            "interval": "",
+            "legendFormat": "Attempted",
+            "refId": "A"
+          }
+        ],
+        "title": "Attempted Depot Uploads",
+        "type": "stat"
+      },
+      {
+        "description": "Shows the number of bytes uploads from the depot to communal storage.\n\nOnly counted if UseDepotForWrites is enabled. Metric mirrors the dc_depot_uploads table.",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "#1a72ac",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 4,
+          "x": 4,
+          "y": 31
+        },
+        "id": 66,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "range"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.3.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "sum(vertica_depot_uploads_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or on() vector(0)",
+            "interval": "",
+            "legendFormat": "Uploads Size",
+            "refId": "A"
+          }
+        ],
+        "title": "Uploads Size",
+        "type": "stat"
+      },
+      {
+        "description": "Shows how the number of bytes uploads from the depot to communal storage increases over time.\nEach point refers to the increase over the past 5 min.",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "#0e89ad",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Uploads Size"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "#1164a9",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 8,
+          "x": 8,
+          "y": 31
+        },
+        "id": 57,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "sum(increase(vertica_depot_uploads_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[5m]))",
+            "interval": "",
+            "legendFormat": "Uploads Size",
+            "refId": "A"
+          }
+        ],
+        "title": "Uploads Size",
+        "type": "timeseries"
+      },
+      {
+        "description": "Shows how the number of bytes per second uploads from the depot to communal storage increases over time.\nEach point refers to the increase over the past 5 min.",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "#0eae6d",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "binBps"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Upload rate"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "light-purple",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 8,
+          "x": 16,
+          "y": 31
+        },
+        "id": 58,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "60 * sum(increase(vertica_depot_uploads_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[5m])) or vector(0) / (sum(increase(vertica_depot_uploads_ms_sum{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[5m])) > 0 or on() vector(1))",
+            "interval": "",
+            "legendFormat": "Upload rate",
+            "refId": "A"
+          }
+        ],
+        "title": "Upload rate",
+        "type": "timeseries"
+      },
+      {
+        "description": "Shows the percentage of successful write when writing to communal storage through the depot.",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "#0bcea3",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "min": 0,
+            "noValue": "No Uploads",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 4,
+          "x": 0,
+          "y": 34
+        },
+        "id": 55,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "range"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.3.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "100 * (1 - sum(vertica_depot_uploads_failures_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or on() vector(0) / (sum(vertica_depot_uploads_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or on() vector(1))) ",
+            "interval": "",
+            "legendFormat": "Successful Uploads %",
+            "refId": "A"
+          }
+        ],
+        "title": "Successful Uploads %",
+        "type": "stat"
+      },
+      {
+        "description": "Shows the number of bytes per second uploads from the depot to communal storage.",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "light-purple",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "binBps"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 4,
+          "x": 4,
+          "y": 34
+        },
+        "id": 65,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "range"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.3.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "PBFA97CFB590B2093"
+            },
+            "exemplar": true,
+            "expr": "60 * (sum(vertica_depot_uploads_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or on() vector(0)) / (sum(vertica_depot_uploads_ms_sum{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) > 0 or on() vector(1))",
+            "interval": "",
+            "legendFormat": "Upload rate",
+            "refId": "A"
+          }
+        ],
+        "title": "Upload rate",
+        "type": "stat"
+      }
+    ],
+    "refresh": "5s",
+    "schemaVersion": 34,
+    "style": "dark",
+    "tags": [
+      "vertica"
+    ],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": false,
+            "text": "vertdb (created/revived@2023-01-24 11:38:17)",
+            "value": "42d72a446f541f4a1ccaea86814209"
+          },
+          "definition": "vertica_db_info",
+          "hide": 0,
+          "includeAll": false,
+          "label": "Database",
+          "multi": false,
+          "name": "db_name",
+          "options": [],
+          "query": {
+            "query": "vertica_db_info",
+            "refId": "StandardVariableQuery"
+          },
+          "refresh": 1,
+          "regex": "/.*dashboard_db_name=\"(?<text>.* \\(.*\\))\".*revive_instance_id=\"(?<value>[a-f0-9]+)\"/",
+          "skipUrlSync": false,
+          "sort": 1,
+          "type": "query"
+        },
+        {
+          "current": {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          "definition": "vertica_subcluster_info{revive_instance_id=\"$db_name\"}",
+          "hide": 0,
+          "includeAll": true,
+          "label": "Subcluster Name",
+          "multi": false,
+          "name": "subcluster_name",
+          "options": [],
+          "query": {
+            "query": "vertica_subcluster_info{revive_instance_id=\"$db_name\"}",
+            "refId": "StandardVariableQuery"
+          },
+          "refresh": 1,
+          "regex": "/subcluster_name=\"(?<text>[a-zA-Z0-9_-]+)|subcluster_oid=\"(?<value>[a-f0-9]+)/g",
+          "skipUrlSync": false,
+          "sort": 1,
+          "type": "query"
+        },
+        {
+          "current": {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          "definition": "vertica_total_nodes_count{revive_instance_id=\"$db_name\",subcluster_oid=~\"$subcluster_name\"}",
+          "hide": 0,
+          "includeAll": true,
+          "label": "Node Name",
+          "multi": false,
+          "name": "node_name",
+          "options": [],
+          "query": {
+            "query": "vertica_total_nodes_count{revive_instance_id=\"$db_name\",subcluster_oid=~\"$subcluster_name\"}",
+            "refId": "StandardVariableQuery"
+          },
+          "refresh": 1,
+          "regex": "/node_name=\"(?<text>[a-zA-Z0-9_-]+)\"/",
+          "skipUrlSync": false,
+          "sort": 1,
+          "type": "query"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-5m",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Vertica Depot",
+    "uid": "vertica-depot",
+    "version": 5,
+    "weekStart": ""
+  }

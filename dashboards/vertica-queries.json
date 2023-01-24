@@ -23,7 +23,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 30,
-  "iteration": 1673448324324,
+  "iteration": 1674486116912,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -73,7 +73,7 @@
       "type": "row"
     },
     {
-      "description": "The number of attempted query requests. This shows how the number of attempted requests increase over time.",
+      "description": "This shows the increase rate of  the number of attempted requests. Each point represents the attempted requests per second over the past 5 min.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -153,8 +153,8 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "sum(increase(vertica_query_requests_succeeded_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[5m]))",
-          "interval": "1m",
+          "expr": "sum(rate(vertica_query_requests_succeeded_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[5m]))",
+          "interval": "",
           "legendFormat": "Attempted",
           "refId": "A"
         }
@@ -163,7 +163,7 @@
       "type": "timeseries"
     },
     {
-      "description": "The total number of processed rows.",
+      "description": " This shows the increase rate of the number of processed rows. Each point represents the processed rows per second over the past 5 min.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -176,7 +176,7 @@
             "barAlignment": 0,
             "drawStyle": "line",
             "fillOpacity": 10,
-            "gradientMode": "scheme",
+            "gradientMode": "hue",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -241,7 +241,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": false,
-          "expr": "sum(increase(vertica_query_requests_processed_rows_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[5m]))",
+          "expr": "sum(rate(vertica_query_requests_processed_rows_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[5m]))",
           "interval": "",
           "legendFormat": "Processed Rows",
           "refId": "A"
@@ -251,7 +251,7 @@
       "type": "timeseries"
     },
     {
-      "description": "Displays how  completed and failed query requests change over time.",
+      "description": "Displays how  fast completed and failed query requests increase. Each point represents the completed/failed requests per second over the past 5 min.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -362,7 +362,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "sum(increase(vertica_query_requests_succeeded_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",request_type=~\"$request_type\"}[5m])) or on() vector(0)",
+          "expr": "sum(rate(vertica_query_requests_succeeded_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",request_type=~\"$request_type\"}[5m])) or on() vector(0)",
           "interval": "",
           "legendFormat": "Completed",
           "refId": "A"
@@ -373,7 +373,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "sum(increase(vertica_query_requests_failed_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[5m])) or on() vector(0)",
+          "expr": "sum(rate(vertica_query_requests_failed_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[5m])) or on() vector(0)",
           "hide": false,
           "interval": "",
           "legendFormat": "Failed",
@@ -763,7 +763,7 @@
       "type": "bargauge"
     },
     {
-      "description": "This shows how the increase of query requests is distributed over request types.",
+      "description": "This shows the increase of query requests distributed over request types. Each point represents the attempted requests over the past 5 min. Only queries executed during the selected time range are considered.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -840,13 +840,96 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": false,
-          "expr": "sum by(request_type) (increase(vertica_query_requests_attempted_total{revive_instance_id=~\"$db_name\",request_type=~\"$request_type\"}[5m]))",
+          "expr": "sum by(request_type) (increase(vertica_query_requests_attempted_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",request_type=~\"$request_type\"}[5m])) > 0",
           "interval": "",
           "legendFormat": "{{request_type}}",
           "refId": "A"
         }
       ],
       "title": "User Query Type Distribution",
+      "type": "timeseries"
+    },
+    {
+      "description": "The time it takes in average for the execution of a single query distributed per type. Only queries executed during the selected time range are considered.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 5,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 30
+      },
+      "id": 24,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "sum by (request_type)(increase(vertica_query_requests_time_ms_sum{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[5m])) / (sum by(request_type)(increase(vertica_query_requests_time_ms_count{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[5m]) ) > 0 or on(request_type) vector(1) )",
+          "interval": "",
+          "legendFormat": "{{request_type}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Average Execution Time per Type",
       "type": "timeseries"
     }
   ],
@@ -860,8 +943,8 @@
       {
         "current": {
           "selected": false,
-          "text": "vertdb (created/revived@2023-01-02 13:28:20)",
-          "value": "094fc62e2e3ab39c305425fc5b69b9"
+          "text": "vertdb (created/revived@2023-01-23 14:31:58)",
+          "value": "a73caa3628e3b25b5078f73454331e"
         },
         "definition": "vertica_db_info",
         "hide": 0,
@@ -905,7 +988,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "All",
           "value": "$__all"
         },
@@ -959,6 +1042,6 @@
   "timezone": "",
   "title": "Vertica Queries",
   "uid": "vertica-queries",
-  "version": 19,
+  "version": 2,
   "weekStart": ""
 }
