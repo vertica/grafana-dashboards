@@ -23,7 +23,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 29,
-  "iteration": 1674486395045,
+  "iteration": 1675199233792,
   "links": [
     {
       "asDropdown": true,
@@ -525,6 +525,66 @@
       "type": "stat"
     },
     {
+      "description": "The ending time of the last audit",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "No Audit",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "dateTimeAsLocal"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 4,
+        "y": 9
+      },
+      "id": 113,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "max(vertica_last_audit_end_time{revive_instance_id=~\"$db_name\"}>0)",
+          "interval": "",
+          "legendFormat": "Last Audit Ending Time",
+          "refId": "A"
+        }
+      ],
+      "title": "Last Audit Ending Time",
+      "type": "stat"
+    },
+    {
       "description": "The number of attempted query requests.",
       "fieldConfig": {
         "defaults": {
@@ -551,7 +611,7 @@
       "gridPos": {
         "h": 3,
         "w": 5,
-        "x": 4,
+        "x": 9,
         "y": 9
       },
       "id": 26,
@@ -622,7 +682,7 @@
       "gridPos": {
         "h": 3,
         "w": 5,
-        "x": 9,
+        "x": 14,
         "y": 9
       },
       "id": 30,
@@ -684,7 +744,7 @@
       "gridPos": {
         "h": 3,
         "w": 5,
-        "x": 14,
+        "x": 19,
         "y": 9
       },
       "id": 107,
@@ -745,9 +805,9 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 5,
-        "x": 19,
-        "y": 9
+        "w": 4,
+        "x": 0,
+        "y": 12
       },
       "id": 53,
       "options": {
@@ -809,8 +869,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 4,
-        "x": 0,
+        "w": 5,
+        "x": 4,
         "y": 12
       },
       "id": 90,
@@ -872,7 +932,7 @@
       "gridPos": {
         "h": 3,
         "w": 5,
-        "x": 4,
+        "x": 9,
         "y": 12
       },
       "id": 55,
@@ -919,8 +979,8 @@
       {
         "current": {
           "selected": false,
-          "text": "vertdb (created/revived@2023-01-23 14:31:58)",
-          "value": "a73caa3628e3b25b5078f73454331e"
+          "text": "vertdb (created/revived@2023-01-31 18:26:05)",
+          "value": "ffafbf9f01c4ccf0b12d395d2a46ef"
         },
         "definition": "vertica_db_info",
         "hide": 0,
@@ -1043,6 +1103,6 @@
   "timezone": "",
   "title": "Vertica Overview",
   "uid": "vertica-cluster-overview",
-  "version": 3,
+  "version": 8,
   "weekStart": ""
 }
