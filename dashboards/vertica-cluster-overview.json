@@ -23,7 +23,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 29,
-  "iteration": 1674486395045,
+  "iteration": 1675288396452,
   "links": [
     {
       "asDropdown": true,
@@ -525,6 +525,184 @@
       "type": "stat"
     },
     {
+      "description": "The ending time of the last audit",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "No Audit",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-purple",
+                "value": null
+              }
+            ]
+          },
+          "unit": "dateTimeAsLocal"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 4,
+        "y": 9
+      },
+      "id": 113,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "max(vertica_last_audit_end_time{revive_instance_id=~\"$db_name\"}>0)",
+          "interval": "",
+          "legendFormat": "Last Audit Ending Time",
+          "refId": "A"
+        }
+      ],
+      "title": "Last Audit Ending Time",
+      "type": "stat"
+    },
+    {
+      "description": "An estimation, in megabytes, of the total data size of the raw data. This is computed each time there is an audit.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-purple",
+                "value": null
+              }
+            ]
+          },
+          "unit": "mbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 9,
+        "y": 9
+      },
+      "id": 116,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "max(vertica_estimated_data_size_raw_mb{revive_instance_id=~\"$db_name\"})",
+          "interval": "",
+          "legendFormat": "Estimated Total Data Size",
+          "refId": "A"
+        }
+      ],
+      "title": "Estimated Total Data Size",
+      "type": "stat"
+    },
+    {
+      "description": "The total compressed size of the data.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "semi-dark-purple",
+                "value": null
+              }
+            ]
+          },
+          "unit": "mbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 14,
+        "y": 9
+      },
+      "id": 117,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "max(vertica_data_size_compressed_mb{revive_instance_id=~\"$db_name\"})",
+          "interval": "",
+          "legendFormat": "Compressed Total Data Size",
+          "refId": "A"
+        }
+      ],
+      "title": "Compressed Total Data Size",
+      "type": "stat"
+    },
+    {
       "description": "The number of attempted query requests.",
       "fieldConfig": {
         "defaults": {
@@ -551,7 +729,7 @@
       "gridPos": {
         "h": 3,
         "w": 5,
-        "x": 4,
+        "x": 19,
         "y": 9
       },
       "id": 26,
@@ -621,9 +799,9 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 5,
-        "x": 9,
-        "y": 9
+        "w": 4,
+        "x": 0,
+        "y": 12
       },
       "id": 30,
       "options": {
@@ -684,8 +862,8 @@
       "gridPos": {
         "h": 3,
         "w": 5,
-        "x": 14,
-        "y": 9
+        "x": 4,
+        "y": 12
       },
       "id": 107,
       "options": {
@@ -746,8 +924,8 @@
       "gridPos": {
         "h": 3,
         "w": 5,
-        "x": 19,
-        "y": 9
+        "x": 9,
+        "y": 12
       },
       "id": 53,
       "options": {
@@ -809,8 +987,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 4,
-        "x": 0,
+        "w": 5,
+        "x": 14,
         "y": 12
       },
       "id": 90,
@@ -872,7 +1050,7 @@
       "gridPos": {
         "h": 3,
         "w": 5,
-        "x": 4,
+        "x": 19,
         "y": 12
       },
       "id": 55,
@@ -919,8 +1097,8 @@
       {
         "current": {
           "selected": false,
-          "text": "vertdb (created/revived@2023-01-23 14:31:58)",
-          "value": "a73caa3628e3b25b5078f73454331e"
+          "text": "vertdb (created/revived@2023-02-01 21:33:15)",
+          "value": "a69c19f9acf85735422234d8c0bc4e"
         },
         "definition": "vertica_db_info",
         "hide": 0,
@@ -1043,6 +1221,6 @@
   "timezone": "",
   "title": "Vertica Overview",
   "uid": "vertica-cluster-overview",
-  "version": 3,
+  "version": 1,
   "weekStart": ""
 }
