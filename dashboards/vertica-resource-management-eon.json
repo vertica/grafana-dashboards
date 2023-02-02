@@ -23,7 +23,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 33,
-  "iteration": 1675373326702,
+  "iteration": 1675374871647,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -586,7 +586,7 @@
               }
             ]
           },
-          "unit": "deckbytes"
+          "unit": "kbytes"
         },
         "overrides": []
       },
@@ -647,7 +647,7 @@
               }
             ]
           },
-          "unit": "deckbytes"
+          "unit": "kbytes"
         },
         "overrides": []
       },
@@ -1850,7 +1850,7 @@
               }
             ]
           },
-          "unit": "MBs"
+          "unit": "MiBs"
         },
         "overrides": [
           {
@@ -2223,9 +2223,9 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "sc1",
-          "value": "45035996273704982"
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
         },
         "definition": "vertica_subcluster_info{revive_instance_id=\"$db_name\"}",
         "hide": 0,
@@ -2246,7 +2246,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "v_vertdb_node0001",
           "value": "v_vertdb_node0001"
         },
@@ -2300,6 +2300,6 @@
   "timezone": "",
   "title": "Vertica Resource Management",
   "uid": "vertica-resource-management-eon",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
