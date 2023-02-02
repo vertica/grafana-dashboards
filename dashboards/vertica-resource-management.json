@@ -22,8 +22,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 31,
-  "iteration": 1674486710877,
+  "id": 32,
+  "iteration": 1675371692577,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -133,7 +133,7 @@
       "type": "stat"
     },
     {
-      "description": "The maximum number of concurrent execution slots available to the resource pool.",
+      "description": "The maximum number of concurrent execution slots that a resource pool can have. When it is equal to Unlimited, it means the resource pool can have unlimited number of concurrent execution slots. When it is equal to 0, it means queries are prevented from running in the pool.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -141,6 +141,7 @@
             "mode": "fixed"
           },
           "mappings": [],
+          "noValue": "Unlimited",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -253,7 +254,7 @@
       "type": "stat"
     },
     {
-      "description": "The maximum amount of memory allocated by this pool to process any query. Value, in MegaBytes, of the MAXQUERYMEMORYSIZE parameter as defined for the pool.",
+      "description": "The maximum amount of memory allocated by this pool to process any query. Value, in MegaBytes, of the MAXQUERYMEMORYSIZE parameter as defined for the pool. When it is equal to Unlimited, it means resource pool can borrow any amount of available memory from the GENERAL pool, within the limits reported by Maximum Memory panel.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -261,6 +262,7 @@
             "mode": "fixed"
           },
           "mappings": [],
+          "noValue": "Unlimited",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -303,7 +305,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "(avg(vertica_resource_pool_max_query_memory_size_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}) / 1024) > 0 or on() vector(0)",
+          "expr": "(avg(vertica_resource_pool_max_query_memory_size_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}>=0) / 1024)",
           "interval": "",
           "legendFormat": "Maximum Query Memory",
           "refId": "A"
@@ -2199,8 +2201,8 @@
       {
         "current": {
           "selected": false,
-          "text": "vertdb (created/revived@2023-01-23 14:31:58)",
-          "value": "a73caa3628e3b25b5078f73454331e"
+          "text": "vertdb (created/revived@2023-02-01 21:33:15)",
+          "value": "a69c19f9acf85735422234d8c0bc4e"
         },
         "definition": "vertica_db_info",
         "hide": 0,
@@ -2222,8 +2224,8 @@
       {
         "current": {
           "selected": true,
-          "text": "v_vertdb_node0002",
-          "value": "v_vertdb_node0002"
+          "text": "v_vertdb_node0001",
+          "value": "v_vertdb_node0001"
         },
         "definition": "vertica_total_nodes_count{revive_instance_id=\"$db_name\"}",
         "hide": 0,
@@ -2244,7 +2246,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "general",
           "value": "general"
         },
@@ -2275,6 +2277,6 @@
   "timezone": "",
   "title": "Vertica Resource Management",
   "uid": "vertica-resource-management",
-  "version": 2,
+  "version": 4,
   "weekStart": ""
 }
