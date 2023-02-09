@@ -46,11 +46,14 @@ def get_dashboards_in_readme():
 
 def get_dashboard_in_readme(dashboard_json):
     dashboards_in_readme = get_dashboards_in_readme()
+    deployment_type = dashboard_json['deployment_type']
+    print(deployment_type)
     dashboard_name = dashboard_json['file_name']
     print(dashboard_name)
-    assert dashboard_json['file_name'] in dashboards_in_readme, \
-        f"Dashboard {dashboard_name} is missing in README"
-    return dashboards_in_readme[dashboard_name]
+    db_title = f"{deployment_type}/{dashboard_name}"
+    assert db_title in dashboards_in_readme, \
+        f"Dashboard {db_title} is missing in README"
+    return dashboards_in_readme[db_title]
 
 
 def test_dashboard_exists(dashboard_json):

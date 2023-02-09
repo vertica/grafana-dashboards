@@ -31,7 +31,10 @@ def test_vertica_tag(dashboard_json):
 
 def test_stable_uid(dashboard_json):
     dashboard_name = dashboard_json['file_name']
-    # The uids is going to the dashboard name striped of its suffix
+    deployment_type = dashboard_json['deployment_type']
+    # The uids is going to the dashboard name striped of its suffix, plus the
+    # deployment type
     assert dashboard_name.endswith(".json")
-    uid = dashboard_name[:-len(".json")]
+    uid = "vertica-{}-{}".format(deployment_type,
+                                 dashboard_name[:-len(".json")])
     assert dashboard_json["uid"] == uid
