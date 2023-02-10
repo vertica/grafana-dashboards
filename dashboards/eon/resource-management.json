@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -22,8 +25,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 33,
-  "iteration": 1675374871647,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -41,10 +42,15 @@
       "id": 31,
       "links": [],
       "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
         "content": "<img src=\"https://www.vertica.com/wp-content/uploads/2017/09/vertica_wht_rgb@2x.png\"/>",
         "mode": "html"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -61,6 +67,10 @@
     },
     {
       "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -69,10 +79,23 @@
       },
       "id": 9,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Pool Configuration Values for $pool_name pool",
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The preferred number of queries that execute concurrently in this resource pool.",
       "fieldConfig": {
         "defaults": {
@@ -115,12 +138,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "max(vertica_resource_pool_planned_concurrency{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
@@ -133,6 +156,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The maximum number of concurrent execution slots that a resource pool can have. When it is equal to Unlimited, it means the resource pool can have unlimited number of concurrent execution slots. When it is equal to 0, it means queries are prevented from running in the pool.",
       "fieldConfig": {
         "defaults": {
@@ -176,12 +203,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "max(vertica_resource_pool_max_concurrency{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}>=0)",
@@ -194,6 +221,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "Value assigned as the maximum size (in MegaBytes) this resource pool can grow by borrowing memory from the GENERAL pool.",
       "fieldConfig": {
         "defaults": {
@@ -236,12 +267,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "avg(vertica_resource_pool_max_memory_size_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}) / 1024",
@@ -254,6 +285,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The maximum amount of memory allocated by this pool to process any query. Value, in MegaBytes, of the MAXQUERYMEMORYSIZE parameter as defined for the pool. When it is equal to Unlimited, it means resource pool can borrow any amount of available memory from the GENERAL pool, within the limits reported by Maximum Memory panel.",
       "fieldConfig": {
         "defaults": {
@@ -297,12 +332,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "(avg(vertica_resource_pool_max_query_memory_size_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}>=0) / 1024)",
@@ -315,6 +350,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "Specifies priority of queries in this pool when they compete for resources in the GENERAL pool.",
       "fieldConfig": {
         "defaults": {
@@ -357,12 +396,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "max(vertica_resource_pool_priority{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
@@ -375,6 +414,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "Limits in seconds how soon a query must finish before the Resource Manager assigns to it the resource pool's RUNTIMEPRIORITY setting.",
       "fieldConfig": {
         "defaults": {
@@ -417,12 +460,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "max(vertica_resource_pool_runtime_priority_threshold{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
@@ -435,6 +478,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The maximum length of time requests can wait for resources to become available before being rejected",
       "fieldConfig": {
         "defaults": {
@@ -477,12 +524,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "max(vertica_resource_pool_queue_timeout{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
@@ -496,6 +543,10 @@
     },
     {
       "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -504,10 +555,23 @@
       },
       "id": 5,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Current Pool Usage Activity (in average per node) for $pool_name pool",
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The average number of queries per node currently executing in the pool.",
       "fieldConfig": {
         "defaults": {
@@ -550,12 +614,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "avg(vertica_resource_pool_running_query_count{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
@@ -569,6 +633,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The average amount of borrowed memory, per node, from the GENERAL pool by requests running against the pool.",
       "fieldConfig": {
         "defaults": {
@@ -611,12 +679,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "avg(vertica_resource_pool_general_memory_borrowed_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
@@ -630,6 +698,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The average amount of memory per node,  for all queued requests in the pool.",
       "fieldConfig": {
         "defaults": {
@@ -672,12 +744,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "avg(vertica_queued_requests_total_memory_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
@@ -691,6 +763,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "When the amount of memory (in MegaBytes) used by all requests against this resource pool exceeds this, new requests against the pool are queued until memory becomes available.",
       "fieldConfig": {
         "defaults": {
@@ -733,12 +809,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "avg(vertica_resource_pool_queueing_threshold_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}) / 1024",
@@ -752,6 +828,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "Percentage of memory used in a pool.",
       "fieldConfig": {
         "defaults": {
@@ -794,12 +874,12 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "100 * sum(vertica_resource_pool_memory_inuse_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}) / sum(vertica_resource_pool_max_memory_size_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
@@ -812,6 +892,10 @@
       "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The current amount of memory (in MegaBytes) that queries are tuned to use in the pool.",
       "fieldConfig": {
         "defaults": {
@@ -854,12 +938,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "avg(vertica_resource_pool_query_budget_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}>=0) / 1024 or vector(0)",
@@ -873,6 +957,10 @@
     },
     {
       "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -881,10 +969,23 @@
       },
       "id": 23,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Resource Pool Statistics (in average per node) for $pool_name pool",
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "This shows how the Max Memory, Pool Memory and Free Memory in the pool change over time. Each of the values is an average per node.",
       "fieldConfig": {
         "defaults": {
@@ -892,6 +993,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -995,17 +1098,19 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "avg(vertica_resource_pool_max_memory_size_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}) /1024",
@@ -1016,7 +1121,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "avg(vertica_resource_pool_memory_size_actual_kb{pool_name=~\"$pool_name\"}) / 1024",
@@ -1028,7 +1133,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "(avg(vertica_resource_pool_max_memory_size_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}) - avg(vertica_resource_pool_memory_inuse_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})) / 1024",
@@ -1042,6 +1147,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The time it takes in average for the execution of a single query. \n Each point represents the average execution per query  over the past 5 min.\n",
       "fieldConfig": {
         "defaults": {
@@ -1049,6 +1158,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -1122,17 +1233,19 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "sum(increase(vertica_query_requests_time_ms_sum{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}[5m])) / sum(increase(vertica_query_requests_time_ms_count{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}[5m]))",
@@ -1145,6 +1258,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "Shows  how fast  resource rejections count increases per second. ",
       "fieldConfig": {
         "defaults": {
@@ -1152,6 +1269,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -1223,17 +1342,19 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "sum(rate(vertica_resource_rejections_total{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}[5m])) or on() vector(0)",
@@ -1246,6 +1367,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The average number of running queries over time.",
       "fieldConfig": {
         "defaults": {
@@ -1253,6 +1378,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -1320,17 +1447,19 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "avg(vertica_resource_pool_running_query_count{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
@@ -1344,6 +1473,10 @@
     },
     {
       "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1352,10 +1485,23 @@
       },
       "id": 51,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Summary Tables",
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "This table is a summary of resource usage for all nodes. With this you can get information about Pool Size, Max Memory... for each node. It is a complement to other panels that give averages per node. It captures just the last values.",
       "fieldConfig": {
         "defaults": {
@@ -1364,7 +1510,8 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto"
+            "displayMode": "auto",
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -1396,12 +1543,12 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": false,
           "expr": "sum by(pool_name,node_name) (vertica_resource_pool_max_memory_size_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"} / 1024)",
@@ -1414,7 +1561,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": false,
           "expr": "sum by(pool_name,node_name) (vertica_resource_pool_memory_size_actual_kb{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"} / 1024)",
@@ -1428,7 +1575,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": false,
           "expr": "sum by(pool_name,node_name)(vertica_resource_pool_running_query_count{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
@@ -1442,7 +1589,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": false,
           "expr": "sum by(pool_name,node_name)(\r\n\tvertica_queued_requests_total{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"})",
@@ -1502,6 +1649,10 @@
       "type": "table"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "This table is a summary of resource rejection for all nodes. With this you can get the resource rejection count for each node. It captures just the last values for each node.",
       "fieldConfig": {
         "defaults": {
@@ -1510,7 +1661,8 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto"
+            "displayMode": "auto",
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -1562,12 +1714,12 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": false,
           "expr": "sum by(node_name,pool_name)(increase(vertica_resource_rejections_total{revive_instance_id=~\"$db_name\",pool_name=~\"$pool_name\"}[5m])) or on() vector(0)",
@@ -1597,6 +1749,10 @@
     },
     {
       "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1605,10 +1761,23 @@
       },
       "id": 27,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Disk Storage Activity on node $node_name",
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "Given a selected node, it displays the disk storage in total for each storage usage.",
       "fieldConfig": {
         "defaults": {
@@ -1651,12 +1820,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "sum by(storage_usage) (vertica_disk_storage_total_mb{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
@@ -1669,6 +1838,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "Given a selected node, it displays the current disk storage usage for each storage usage.",
       "fieldConfig": {
         "defaults": {
@@ -1711,12 +1884,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "sum by(storage_usage)(vertica_disk_storage_used_mb{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
@@ -1729,6 +1902,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "Given a selected node, it displays the percentage of current disk storage available for each storage usage.",
       "fieldConfig": {
         "defaults": {
@@ -1771,12 +1948,12 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "sum by(storage_usage) (vertica_disk_storage_free_percent{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
@@ -1790,6 +1967,10 @@
     },
     {
       "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1798,10 +1979,23 @@
       },
       "id": 41,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Storage Location Performance on node $node_name",
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "Measures each storage location's performance in MB/s.",
       "fieldConfig": {
         "defaults": {
@@ -1809,6 +2003,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -1911,17 +2107,19 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "sum by(storage_usage) (vertica_disk_storage_throughput_mb_per_second{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
@@ -1934,6 +2132,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "Measures each storage location's performance in seeks/s.",
       "fieldConfig": {
         "defaults": {
@@ -1941,6 +2143,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -2039,17 +2243,19 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "sum by(storage_usage)(vertica_disk_storage_latency_seek_per_second{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
@@ -2062,6 +2268,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The percentage of disk space used for each storage usage, over time.",
       "fieldConfig": {
         "defaults": {
@@ -2069,6 +2279,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -2168,17 +2380,19 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "100 - sum by(storage_usage) (vertica_disk_storage_free_percent{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
@@ -2191,7 +2405,7 @@
       "type": "timeseries"
     }
   ],
-  "schemaVersion": 34,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [
     "vertica"
@@ -2201,8 +2415,30 @@
       {
         "current": {
           "selected": false,
-          "text": "vertdb (created/revived@2023-02-01 21:33:15)",
-          "value": "a69c19f9acf85735422234d8c0bc4e"
+          "text": "Prometheus",
+          "value": "Prometheus"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Data Source",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "Vertica_Dashboard (c716efd)",
+          "value": "c716efde01c027bbe4dc32d05b697c"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
         },
         "definition": "vertica_db_info",
         "hide": 0,
@@ -2223,9 +2459,13 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "All",
           "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
         },
         "definition": "vertica_subcluster_info{revive_instance_id=\"$db_name\"}",
         "hide": 0,
@@ -2246,9 +2486,13 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": "v_vertdb_node0001",
-          "value": "v_vertdb_node0001"
+          "selected": false,
+          "text": "v_vertica_dashboard_node0001",
+          "value": "v_vertica_dashboard_node0001"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
         },
         "definition": "vertica_total_nodes_count{revive_instance_id=\"$db_name\",subcluster_oid=~\"$subcluster_name\"}",
         "hide": 0,
@@ -2269,9 +2513,13 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "general",
           "value": "general"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
         },
         "definition": "label_values(vertica_resource_pool_memory_size_actual_kb,pool_name)",
         "hide": 0,
@@ -2300,6 +2548,6 @@
   "timezone": "",
   "title": "Vertica / EON / Resource Management",
   "uid": "vertica-eon-resource-management",
-  "version": 3,
+  "version": 1,
   "weekStart": ""
 }

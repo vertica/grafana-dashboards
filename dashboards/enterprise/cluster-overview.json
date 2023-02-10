@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -22,8 +25,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 29,
-  "iteration": 1675288396452,
   "links": [
     {
       "asDropdown": true,
@@ -56,10 +57,15 @@
       "id": 109,
       "links": [],
       "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
         "content": "<img src=\"https://www.vertica.com/wp-content/uploads/2017/09/vertica_wht_rgb@2x.png\"/>",
         "mode": "html"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
@@ -76,6 +82,10 @@
     },
     {
       "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -84,10 +94,23 @@
       },
       "id": 2,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Overview",
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "Current database's name",
       "fieldConfig": {
         "defaults": {
@@ -128,12 +151,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": false,
           "expr": "vertica_db_info{revive_instance_id=~\"$db_name\"}",
@@ -158,6 +181,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The total number of nodes in the cluster",
       "fieldConfig": {
         "defaults": {
@@ -198,12 +225,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "max(vertica_total_nodes_count{revive_instance_id=~\"$db_name\"})",
@@ -216,6 +243,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "Reports the number of up nodes in the cluster. ",
       "fieldConfig": {
         "defaults": {
@@ -260,12 +291,12 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "max(vertica_up_nodes_count{revive_instance_id=~\"$db_name\"})",
@@ -280,6 +311,10 @@
       "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "Shows Vertica build version.",
       "fieldConfig": {
         "defaults": {
@@ -320,12 +355,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": false,
           "expr": "vertica_build_info{revive_instance_id=~\"$db_name\"}",
@@ -351,6 +386,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The number of nodes with low disk space available for the selected storage usage.",
       "fieldConfig": {
         "defaults": {
@@ -393,12 +432,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "count(count by(node_name) (vertica_disk_storage_free_percent{revive_instance_id=~\"$db_name\",storage_usage=~\"$storage_usage\"} < 40))",
@@ -412,6 +451,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "If license limits the size of the database, this indicates how many MB the license is for.",
       "fieldConfig": {
         "defaults": {
@@ -450,12 +493,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": false,
           "expr": "max(vertica_license_size_mb{revive_instance_id=~\"$db_name\"})",
@@ -469,6 +512,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "If license limits the number of nodes in the database, this indicates how many nodes are allowed",
       "fieldConfig": {
         "defaults": {
@@ -507,12 +554,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "max(vertica_license_node_count{revive_instance_id=~\"$db_name\"})",
@@ -525,6 +572,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The ending time of the last audit",
       "fieldConfig": {
         "defaults": {
@@ -567,12 +618,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "max(vertica_last_audit_end_time{revive_instance_id=~\"$db_name\"}>0)",
@@ -585,6 +636,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "An estimation, in megabytes, of the total data size of the raw data. This is computed each time there is an audit.",
       "fieldConfig": {
         "defaults": {
@@ -626,12 +681,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "max(vertica_estimated_data_size_raw_mb{revive_instance_id=~\"$db_name\"})",
@@ -644,6 +699,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The total compressed size of the data.",
       "fieldConfig": {
         "defaults": {
@@ -685,12 +744,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "max(vertica_data_size_compressed_mb{revive_instance_id=~\"$db_name\"})",
@@ -703,6 +762,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The number of attempted query requests.",
       "fieldConfig": {
         "defaults": {
@@ -754,12 +817,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "sum(increase(vertica_query_requests_attempted_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
@@ -774,6 +837,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The number of processed queries rows over the selected time range.",
       "fieldConfig": {
         "defaults": {
@@ -818,12 +885,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "sum(increase(vertica_query_requests_processed_rows_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
@@ -836,6 +903,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The number of completed query requests.",
       "fieldConfig": {
         "defaults": {
@@ -881,12 +952,12 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": false,
           "expr": "sum(increase(vertica_query_requests_succeeded_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
@@ -899,6 +970,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The number of failed query requests over the selected time range.",
       "fieldConfig": {
         "defaults": {
@@ -945,12 +1020,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": false,
           "expr": "sum(increase(vertica_query_requests_failed_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
@@ -963,6 +1038,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The number of queued query requests.",
       "fieldConfig": {
         "defaults": {
@@ -1007,12 +1086,12 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "sum(vertica_queued_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=\"general\"})",
@@ -1025,6 +1104,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "description": "The number of running queries.",
       "fieldConfig": {
         "defaults": {
@@ -1068,12 +1151,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.6",
+      "pluginVersion": "9.3.6",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "sum(vertica_resource_pool_running_query_count{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=\"general\"})",
@@ -1087,7 +1170,7 @@
     }
   ],
   "refresh": false,
-  "schemaVersion": 34,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [
     "vertica"
@@ -1097,8 +1180,30 @@
       {
         "current": {
           "selected": false,
-          "text": "vertdb (created/revived@2023-02-01 21:33:15)",
-          "value": "a69c19f9acf85735422234d8c0bc4e"
+          "text": "Prometheus",
+          "value": "Prometheus"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Data Source",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "Vertica_Dashboard (c716efd)",
+          "value": "c716efde01c027bbe4dc32d05b697c"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
         },
         "definition": "vertica_db_info",
         "hide": 0,
@@ -1124,6 +1229,10 @@
           "text": "All",
           "value": "$__all"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
         "definition": "vertica_total_nodes_count{revive_instance_id=\"$db_name\"}",
         "hide": 0,
         "includeAll": true,
@@ -1146,6 +1255,10 @@
           "selected": false,
           "text": "All",
           "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
         },
         "definition": "label_values(vertica_resource_pool_memory_size_actual_kb,pool_name)",
         "hide": 0,
@@ -1171,6 +1284,10 @@
           "text": "All",
           "value": "$__all"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
         "definition": "label_values(request_type)",
         "hide": 0,
         "includeAll": true,
@@ -1193,6 +1310,10 @@
           "selected": false,
           "text": "CATALOG",
           "value": "CATALOG"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
         },
         "definition": "label_values(storage_usage)",
         "hide": 0,
