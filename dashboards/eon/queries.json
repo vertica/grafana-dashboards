@@ -1063,8 +1063,8 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "Vertica Queries",
-    "uid": "vertica-queries-eon",
+    "title": "Vertica / EON / Queries",
+    "uid": "vertica-eon-queries",
     "version": 3,
     "weekStart": ""
   }

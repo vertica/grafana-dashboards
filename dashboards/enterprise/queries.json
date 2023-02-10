@@ -1040,8 +1040,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Vertica Queries",
-  "uid": "vertica-queries",
+  "title": "Vertica / Enterprise / Queries",
+  "uid": "vertica-enterprise-queries",
   "version": 2,
   "weekStart": ""
 }

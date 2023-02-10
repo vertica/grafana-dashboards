@@ -1219,8 +1219,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Vertica Overview",
-  "uid": "vertica-cluster-overview",
+  "title": "Vertica / Enterprise / Overview",
+  "uid": "vertica-enterprise-cluster-overview",
   "version": 1,
   "weekStart": ""
 }
