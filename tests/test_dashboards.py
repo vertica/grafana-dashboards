@@ -18,7 +18,7 @@ def test_json_expected_fields(dashboard_json):
     j = dashboard_json
     # Look for well-known fields that the JSON must have
     expected_fields = ["uid", "title", "tags", "panels", "schemaVersion",
-                       "version", "description"]
+                       "version", "description", "links"]
     for ef in expected_fields:
         assert ef in j
 
@@ -38,3 +38,18 @@ def test_stable_uid(dashboard_json):
     uid = "vertica-{}-{}".format(deployment_type,
                                  dashboard_name[:-len(".json")])
     assert dashboard_json["uid"] == uid
+
+
+def test_dashboard_link(dashboard_json):
+    j = dashboard_json
+    assert "links" in j
+    links = j['links']
+    assert len(links) == 1
+    assert links[0]["asDropdown"] is True
+    assert links[0]["includeVars"] is True
+    assert links[0]["keepTime"] is True
+    assert links[0]["targetBlank"] is False
+    assert len(links[0]["tags"]) == 1
+    assert links[0]["tags"][0] == "vertica"
+    assert links[0]["title"] == "Dashboards"
+    assert links[0]["type"] == "dashboards"
