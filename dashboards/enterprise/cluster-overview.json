@@ -25,6 +25,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 34,
   "links": [
     {
       "asDropdown": true,
@@ -804,13 +805,13 @@
         }
       ],
       "options": {
-        "colorMode": "none",
-        "graphMode": "area",
+        "colorMode": "value",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "range"
           ],
           "fields": "",
           "values": false
@@ -824,8 +825,9 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(increase(vertica_query_requests_attempted_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
+          "expr": "sum(vertica_query_requests_attempted_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}) or vector(0)",
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
@@ -872,13 +874,13 @@
       },
       "id": 30,
       "options": {
-        "colorMode": "none",
-        "graphMode": "area",
+        "colorMode": "value",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "range"
           ],
           "fields": "",
           "values": false
@@ -892,10 +894,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(increase(vertica_query_requests_processed_rows_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
+          "expr": "sum(vertica_query_requests_processed_rows_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}) or vector(0)",
           "interval": "",
           "legendFormat": "processed rows",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -938,13 +942,13 @@
       },
       "id": 107,
       "options": {
-        "colorMode": "none",
-        "graphMode": "area",
+        "colorMode": "value",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "range"
           ],
           "fields": "",
           "values": false
@@ -959,10 +963,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(increase(vertica_query_requests_succeeded_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
+          "expr": "sum(vertica_query_requests_succeeded_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}) or vector(0)",
           "interval": "",
           "legendFormat": "Completed",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1004,13 +1010,13 @@
       },
       "id": 53,
       "options": {
-        "colorMode": "none",
-        "graphMode": "area",
+        "colorMode": "value",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "range"
           ],
           "fields": "",
           "values": false
@@ -1027,10 +1033,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(increase(vertica_query_requests_failed_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
+          "expr": "sum(vertica_query_requests_failed_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}) or vector(0)",
           "interval": "",
           "legendFormat": "Completed",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1198,8 +1206,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Vertica_Dashboard (c716efd)",
-          "value": "c716efde01c027bbe4dc32d05b697c"
+          "text": "demoPI1 (created/revived@2023-02-13 14:27:41)",
+          "value": "7d9b75130a83344e626b15605026e6"
         },
         "datasource": {
           "type": "prometheus",
