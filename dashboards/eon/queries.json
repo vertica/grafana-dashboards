@@ -25,7 +25,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 28,
+  "id": 32,
   "links": [
     {
       "asDropdown": true,
@@ -1105,8 +1105,9 @@
         "cellGap": 2,
         "cellValues": {},
         "color": {
-          "exponent": 0.5,
+          "exponent": 0.2,
           "fill": "#005eff",
+          "min": 0,
           "mode": "opacity",
           "reverse": false,
           "scale": "exponential",
