@@ -1066,7 +1066,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Shows the number of queries , for each time range, over time.",
+      "description": "Shows the number of queries, for each time range, over time.",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -1154,7 +1154,7 @@
           "refId": "A"
         }
       ],
-      "title": "Queries Execution Time Distribution",
+      "title": "Query Execution Time Distribution",
       "tooltip": {
         "show": true,
         "showHistogram": false
