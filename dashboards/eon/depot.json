@@ -25,6 +25,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 30,
   "links": [
     {
       "asDropdown": true,
@@ -231,27 +232,14 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by(node_name) (vertica_disk_storage_used_mb{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",storage_usage=~\"DEPOT\"})",
+          "expr": "sum by(node_name) (vertica_depot_size_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
           "format": "table",
           "instant": true,
           "interval": "",
           "legendFormat": "",
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "exemplar": false,
-          "expr": "sum by(node_name) (100 - vertica_disk_storage_free_percent{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",storage_usage=~\"DEPOT\"})",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "B"
         },
         {
           "datasource": {
@@ -367,10 +355,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
           "expr": "sum(sum by(node_name) (vertica_depot_size_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}))",
           "interval": "",
           "legendFormat": "Depot in Use",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -408,6 +398,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
+      "description": "The number of lookup  requests during the selected time range.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -434,13 +425,13 @@
       },
       "id": 75,
       "options": {
-        "colorMode": "none",
-        "graphMode": "area",
+        "colorMode": "value",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "range"
           ],
           "fields": "",
           "values": false
@@ -454,10 +445,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "(sum(increase(vertica_depot_lookup_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range])))",
+          "expr": "sum(vertica_depot_lookup_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or vector(0)",
           "interval": "",
           "legendFormat": "",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -526,11 +519,13 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "100 *(sum(increase(vertica_depot_lookup_hits_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range]))) / (sum(increase(vertica_depot_lookup_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range])))",
+          "expr": "100 *(sum(increase(vertica_depot_lookup_hits_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range]))) / (sum(increase(vertica_depot_lookup_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range])) > 0)",
           "hide": false,
           "interval": "",
           "legendFormat": "Hits %",
+          "range": true,
           "refId": "B"
         }
       ],
@@ -542,6 +537,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
+      "description": "The Number of cache hits when finding a file in the depot.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -552,7 +548,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "light-purple",
+                "color": "#1ecdbb",
                 "value": null
               }
             ]
@@ -568,13 +564,13 @@
       },
       "id": 76,
       "options": {
-        "colorMode": "none",
-        "graphMode": "area",
+        "colorMode": "value",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "range"
           ],
           "fields": "",
           "values": false
@@ -588,10 +584,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "(sum(increase(vertica_depot_lookup_hits_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range])))",
+          "expr": "sum(vertica_depot_lookup_hits_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or vector(0)",
           "interval": "",
           "legendFormat": "",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -656,13 +654,13 @@
       },
       "id": 59,
       "options": {
-        "colorMode": "none",
-        "graphMode": "area",
+        "colorMode": "value",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "last"
+            "range"
           ],
           "fields": "",
           "values": false
@@ -676,10 +674,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(increase(vertica_depot_fetches_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",source=\"communal\"}[$__range])) ",
+          "expr": "sum(vertica_depot_fetches_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",source=\"communal\"}) or vector(0)",
           "interval": "",
           "legendFormat": "Attempted",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -992,10 +992,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "100 * (sum(increase(vertica_depot_fetches_failures_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",source=\"communal\"}[$__range])) / sum(increase(vertica_depot_fetches_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",source=\"communal\"}[$__range])) )",
+          "expr": "100 * (sum(increase(vertica_depot_fetches_failures_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",source=\"communal\"}[$__range])) / sum(increase(vertica_depot_fetches_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",source=\"communal\"}[$__range]) > 0) )",
           "interval": "",
           "legendFormat": "Failed Fetches %",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1045,7 +1047,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -1108,7 +1111,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -1201,7 +1205,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1311,7 +1316,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -1374,7 +1380,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -1463,7 +1470,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-blue"
+                "color": "dark-blue",
+                "value": null
               }
             ]
           }
@@ -1498,10 +1506,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(vertica_depot_uploads_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or on() vector(0)",
+          "expr": "sum(vertica_depot_uploads_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or vector(0)",
           "interval": "",
           "legendFormat": "Attempted",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1522,7 +1532,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#1a72ac"
+                "color": "#1a72ac",
+                "value": null
               }
             ]
           },
@@ -1558,10 +1569,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(vertica_depot_uploads_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or on() vector(0)",
+          "expr": "sum(vertica_depot_uploads_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or vector(0)",
           "interval": "",
           "legendFormat": "Uploads Size",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1610,11 +1623,13 @@
             }
           },
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "#0e89ad"
+                "color": "#0e89ad",
+                "value": null
               }
             ]
           },
@@ -1715,11 +1730,13 @@
             }
           },
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "#0eae6d"
+                "color": "#0eae6d",
+                "value": null
               }
             ]
           },
@@ -1768,10 +1785,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "60 * sum(increase(vertica_depot_uploads_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[5m])) or vector(0) / (sum(increase(vertica_depot_uploads_ms_sum{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[5m])) > 0 or on() vector(1))",
+          "expr": "1000 * sum(increase(vertica_depot_uploads_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[5m])) or vector(0) / (sum(increase(vertica_depot_uploads_ms_sum{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[5m])) > 0 or on() vector(1))",
           "interval": "",
           "legendFormat": "Upload rate",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1797,7 +1816,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -1819,7 +1839,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -1833,10 +1853,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "100 * (1 - sum(vertica_depot_uploads_failures_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or on() vector(0) / (sum(vertica_depot_uploads_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or on() vector(1))) ",
+          "expr": "100 * (1 - sum(increase(vertica_depot_uploads_failures_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range])) / (sum(increase(vertica_depot_uploads_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range]) > 0))) ",
           "interval": "",
           "legendFormat": "Successful Uploads %",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1853,11 +1875,13 @@
         "defaults": {
           "mappings": [],
           "min": 0,
+          "noValue": "No Uploads",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "light-purple"
+                "color": "light-purple",
+                "value": null
               }
             ]
           },
@@ -1879,7 +1903,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -1893,10 +1917,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "60 * (sum(vertica_depot_uploads_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or on() vector(0)) / (sum(vertica_depot_uploads_ms_sum{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) > 0 or on() vector(1))",
+          "expr": "1000 * (sum(increase(vertica_depot_uploads_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range]))) / (sum(increase(vertica_depot_uploads_ms_sum{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range]) > 0))",
           "interval": "",
           "legendFormat": "Upload rate",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1933,8 +1959,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Vertica_Dashboard (c716efd)",
-          "value": "c716efde01c027bbe4dc32d05b697c"
+          "text": "demoPI1 (created/revived@2023-02-13 14:27:41)",
+          "value": "7d9b75130a83344e626b15605026e6"
         },
         "datasource": {
           "type": "prometheus",
@@ -1986,7 +2012,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "All",
           "value": "$__all"
         },
