@@ -622,6 +622,7 @@
           },
           "displayName": "${__series.name}",
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -631,7 +632,7 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "short"
         },
         "overrides": []
       },
@@ -649,7 +650,7 @@
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -663,10 +664,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum by(node_name) (vertica_query_requests_succeeded_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\"})",
+          "expr": "sum by(node_name) (increase(vertica_query_requests_succeeded_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\"}[$__range]))",
           "interval": "",
           "legendFormat": "{{node_name}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -687,6 +690,7 @@
           },
           "displayName": "${__series.name}",
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -695,7 +699,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": []
       },
@@ -713,7 +718,7 @@
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -727,10 +732,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum by(node_name) (vertica_query_requests_failed_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\"})",
+          "expr": "sum by(node_name) (increase(vertica_query_requests_failed_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\"}[$__range]))",
           "interval": "1m",
           "legendFormat": "{{node_name}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -751,6 +758,7 @@
           },
           "displayName": "${__series.name}",
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -759,7 +767,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": []
       },
@@ -777,7 +786,7 @@
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -791,10 +800,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum by(pool_name) (vertica_query_requests_succeeded_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\"})",
+          "expr": "sum by(pool_name) (increase(vertica_query_requests_succeeded_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\"}[$__range]))",
           "interval": "1m",
           "legendFormat": "{{pool_name}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -815,6 +826,7 @@
           },
           "displayName": "${__series.name}",
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -823,7 +835,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unit": "short"
         },
         "overrides": []
       },
@@ -841,7 +854,7 @@
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -855,10 +868,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum by(pool_name) (vertica_query_requests_failed_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\"})",
+          "expr": "sum by(pool_name) (increase(vertica_query_requests_failed_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\"}[$__range]))",
           "interval": "1m",
           "legendFormat": "{{pool_name}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1045,7 +1060,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum by (request_type)(increase(vertica_query_requests_time_ms_sum{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[5m])) / (sum by(request_type)(increase(vertica_query_requests_time_ms_count{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[5m]) ) > 0 or on(request_type) vector(1) )",
+          "expr": "sum by (request_type)(increase(vertica_query_requests_time_ms_sum{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[5m])) / (sum by(request_type)(increase(vertica_query_requests_time_ms_count{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[5m]) ) > 0 or vector(1))\r\nor\r\nsum by (request_type)(increase(vertica_query_requests_time_ms_sum{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[5m]))",
           "interval": "",
           "legendFormat": "{{request_type}}",
           "range": true,
@@ -1202,9 +1217,9 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "demoPI1 (created/revived@2023-02-13 14:27:41)",
-          "value": "7d9b75130a83344e626b15605026e6"
+          "selected": true,
+          "text": "demoofficial (created/revived@2023-02-15 03:42:08)",
+          "value": "885ce55de42f8c52a8f46578579aeb"
         },
         "datasource": {
           "type": "prometheus",

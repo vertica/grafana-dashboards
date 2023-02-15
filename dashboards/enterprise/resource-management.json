@@ -1931,12 +1931,12 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "#47e9c6",
+                "color": "#e139bc",
                 "value": null
               },
               {
-                "color": "#cf17cb",
-                "value": 60
+                "color": "#17cfb7",
+                "value": 40
               }
             ]
           },
