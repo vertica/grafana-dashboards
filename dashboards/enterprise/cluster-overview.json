@@ -805,12 +805,12 @@
       ],
       "options": {
         "colorMode": "value",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -826,7 +826,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(vertica_query_requests_attempted_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}) or vector(0)",
+          "expr": "sum(increase(vertica_query_requests_attempted_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
@@ -874,12 +874,12 @@
       "id": 30,
       "options": {
         "colorMode": "value",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -895,7 +895,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(vertica_query_requests_processed_rows_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}) or vector(0)",
+          "expr": "sum(increase(vertica_query_requests_processed_rows_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
           "interval": "",
           "legendFormat": "processed rows",
           "range": true,
@@ -942,12 +942,12 @@
       "id": 107,
       "options": {
         "colorMode": "value",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -964,7 +964,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(vertica_query_requests_succeeded_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}) or vector(0)",
+          "expr": "sum(increase(vertica_query_requests_succeeded_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
           "interval": "",
           "legendFormat": "Completed",
           "range": true,
@@ -1010,19 +1010,17 @@
       "id": 53,
       "options": {
         "colorMode": "value",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "last"
           ],
           "fields": "",
           "values": false
         },
-        "text": {
-          "valueSize": 0
-        },
+        "text": {},
         "textMode": "auto"
       },
       "pluginVersion": "9.3.6",
@@ -1034,7 +1032,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(vertica_query_requests_failed_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}) or vector(0)",
+          "expr": "sum(increase(vertica_query_requests_failed_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
           "interval": "",
           "legendFormat": "Completed",
           "range": true,
@@ -1204,9 +1202,9 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "demoPI1 (created/revived@2023-02-13 14:27:41)",
-          "value": "7d9b75130a83344e626b15605026e6"
+          "selected": true,
+          "text": "demoofficial (created/revived@2023-02-15 03:42:08)",
+          "value": "885ce55de42f8c52a8f46578579aeb"
         },
         "datasource": {
           "type": "prometheus",

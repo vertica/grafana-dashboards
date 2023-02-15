@@ -25,7 +25,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 30,
   "links": [
     {
       "asDropdown": true,
@@ -426,12 +425,12 @@
       "id": 75,
       "options": {
         "colorMode": "value",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -447,7 +446,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(vertica_depot_lookup_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or vector(0)",
+          "expr": "sum(increase(vertica_depot_lookup_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range]))",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -565,12 +564,12 @@
       "id": 76,
       "options": {
         "colorMode": "value",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -586,7 +585,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(vertica_depot_lookup_hits_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or vector(0)",
+          "expr": "sum(increase(vertica_depot_lookup_hits_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range]))",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -655,12 +654,12 @@
       "id": 59,
       "options": {
         "colorMode": "value",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -676,7 +675,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(vertica_depot_fetches_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",source=\"communal\"}) or vector(0)",
+          "expr": "sum(increase(vertica_depot_fetches_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",source=\"communal\"}[$__range]))",
           "interval": "",
           "legendFormat": "Attempted",
           "range": true,
@@ -797,10 +796,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
           "expr": "sum(increase((vertica_depot_fetches_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",source=\"communal\"}[5m]))) ",
           "interval": "",
           "legendFormat": "Fetches",
+          "range": true,
           "refId": "A"
         },
         {
@@ -808,11 +809,13 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(increase(vertica_depot_evictions_bytes{node_name=~\"$node_name\"}[5m]))",
+          "expr": "sum(increase(vertica_depot_evictions_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[5m]))",
           "hide": false,
           "interval": "",
           "legendFormat": "Evictions",
+          "range": true,
           "refId": "B"
         }
       ],
@@ -870,8 +873,9 @@
         "cellGap": 2,
         "cellValues": {},
         "color": {
-          "exponent": 0.5,
+          "exponent": 0.2,
           "fill": "#005eff",
+          "min": 0,
           "mode": "opacity",
           "reverse": false,
           "scale": "exponential",
@@ -1487,12 +1491,12 @@
       "id": 23,
       "options": {
         "colorMode": "value",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "diff"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -1508,7 +1512,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(vertica_depot_uploads_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or vector(0)",
+          "expr": "sum(increase(vertica_depot_uploads_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range]))",
           "interval": "",
           "legendFormat": "Attempted",
           "range": true,
@@ -1550,12 +1554,12 @@
       "id": 66,
       "options": {
         "colorMode": "value",
-        "graphMode": "none",
+        "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "range"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -1571,7 +1575,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(vertica_depot_uploads_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}) or vector(0)",
+          "expr": "sum(increase(vertica_depot_uploads_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range]))",
           "interval": "",
           "legendFormat": "Uploads Size",
           "range": true,
@@ -1787,7 +1791,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "1000 * sum(increase(vertica_depot_uploads_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[5m])) or vector(0) / (sum(increase(vertica_depot_uploads_ms_sum{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[5m])) > 0 or on() vector(1))",
+          "expr": "1000 * sum(increase(vertica_depot_uploads_bytes{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[5m])) or vector(0) / (sum(increase(vertica_depot_uploads_ms_sum{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[5m])) > 0 or vector(1))",
           "interval": "",
           "legendFormat": "Upload rate",
           "range": true,
@@ -1959,8 +1963,8 @@
       {
         "current": {
           "selected": true,
-          "text": "demonmapi1 (created/revived@2023-02-14 17:12:54)",
-          "value": "af30e6f021b4b8801b5bec35212f49"
+          "text": "demoofficial (created/revived@2023-02-15 03:42:08)",
+          "value": "885ce55de42f8c52a8f46578579aeb"
         },
         "datasource": {
           "type": "prometheus",
