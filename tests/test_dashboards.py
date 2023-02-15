@@ -26,7 +26,7 @@ def test_json_expected_fields(dashboard_json):
 def test_vertica_tag(dashboard_json):
     j = dashboard_json
     print(j["tags"])
-    assert "vertica" in j["tags"]
+    assert f"vertica-{j['deployment_type']}" in j["tags"]
 
 
 def test_stable_uid(dashboard_json):
@@ -49,7 +49,6 @@ def test_dashboard_link(dashboard_json):
     assert links[0]["includeVars"] is True
     assert links[0]["keepTime"] is True
     assert links[0]["targetBlank"] is False
-    assert len(links[0]["tags"]) == 1
-    assert links[0]["tags"][0] == "vertica"
+    assert f"vertica-{j['deployment_type']}" in links[0]["tags"]
     assert links[0]["title"] == "Dashboards"
     assert links[0]["type"] == "dashboards"

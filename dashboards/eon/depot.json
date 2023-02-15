@@ -32,7 +32,7 @@
       "includeVars": true,
       "keepTime": true,
       "tags": [
-        "vertica"
+        "vertica-eon"
       ],
       "targetBlank": false,
       "title": "Dashboards",
@@ -1938,7 +1938,7 @@
   "schemaVersion": 37,
   "style": "dark",
   "tags": [
-    "vertica"
+    "vertica-eon"
   ],
   "templating": {
     "list": [
