@@ -25,7 +25,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 33,
   "links": [
     {
       "asDropdown": true,
@@ -951,10 +950,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by(request_type) (increase(vertica_query_requests_attempted_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",request_type=~\"$request_type\"}[5m])) > 0",
+          "expr": "sum by(request_type) (increase(vertica_query_requests_attempted_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",request_type=~\"$request_type\"}[5m]))",
           "interval": "",
           "legendFormat": "{{request_type}}",
+          "range": true,
           "refId": "A"
         }
       ],
