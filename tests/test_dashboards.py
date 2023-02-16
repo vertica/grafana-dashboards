@@ -52,3 +52,10 @@ def test_dashboard_link(dashboard_json):
     assert f"vertica-{j['deployment_type']}" in links[0]["tags"]
     assert links[0]["title"] == "Dashboards"
     assert links[0]["type"] == "dashboards"
+
+
+def test_refresh(dashboard_json):
+    j = dashboard_json
+    assert "refresh" in j
+    # All dashboards must have 5s refresh by default
+    assert j["refresh"] == "5s"
