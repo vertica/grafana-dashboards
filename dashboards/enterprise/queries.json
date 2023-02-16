@@ -32,7 +32,7 @@
       "includeVars": true,
       "keepTime": true,
       "tags": [
-        "vertica"
+        "vertica-enterprise"
       ],
       "targetBlank": false,
       "title": "Dashboards",
@@ -1196,7 +1196,7 @@
   "schemaVersion": 37,
   "style": "dark",
   "tags": [
-    "vertica"
+    "vertica-enterprise"
   ],
   "templating": {
     "list": [
