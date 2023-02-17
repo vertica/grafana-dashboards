@@ -1185,11 +1185,6 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "Prometheus",
-          "value": "Prometheus"
-        },
         "hide": 0,
         "includeAll": false,
         "label": "Data Source",
@@ -1203,11 +1198,6 @@
         "type": "datasource"
       },
       {
-        "current": {
-          "selected": true,
-          "text": "demoofficial (created/revived@2023-02-16 15:44:11)",
-          "value": "87c7052d7644e117a919270c16e466"
-        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
@@ -1230,11 +1220,6 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
@@ -1258,11 +1243,6 @@
       },
       {
         "allValue": "",
-        "current": {
-          "selected": true,
-          "text": "v_demoofficial_node0004",
-          "value": "v_demoofficial_node0004"
-        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
@@ -1285,11 +1265,6 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
@@ -1313,11 +1288,6 @@
       },
       {
         "allValue": "",
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
@@ -1340,11 +1310,6 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "CATALOG",
-          "value": "CATALOG"
-        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
