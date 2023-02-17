@@ -218,7 +218,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -283,7 +283,7 @@
         "orientation": "vertical",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -348,7 +348,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "last"
           ],
           "fields": "/^version$/",
           "values": false
@@ -362,8 +362,9 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "vertica_build_info{revive_instance_id=~\"$db_name\"}",
+          "expr": "vertica_build_info{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}",
           "hide": false,
           "instant": false,
           "interval": "",
@@ -1203,9 +1204,9 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "demoofficial (created/revived@2023-02-15 03:42:08)",
-          "value": "885ce55de42f8c52a8f46578579aeb"
+          "selected": true,
+          "text": "demoofficial (created/revived@2023-02-16 15:44:11)",
+          "value": "87c7052d7644e117a919270c16e466"
         },
         "datasource": {
           "type": "prometheus",
@@ -1258,9 +1259,9 @@
       {
         "allValue": "",
         "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": "v_demoofficial_node0004",
+          "value": "v_demoofficial_node0004"
         },
         "datasource": {
           "type": "prometheus",
