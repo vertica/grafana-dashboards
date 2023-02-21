@@ -43,4 +43,4 @@ pep8: ## Ensures python code conforms to PEP8
 
 .PHONY: fix-pep8
 fix-pep8: ## Automatically fixes any PEP8 violations
-	autopep8 --in-place tests/*py
+	autopep8 --in-place tests/*py scripts/*py
