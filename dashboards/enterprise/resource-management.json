@@ -2429,11 +2429,6 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "Prometheus",
-          "value": "Prometheus"
-        },
         "hide": 0,
         "includeAll": false,
         "label": "Data Source",
@@ -2447,11 +2442,6 @@
         "type": "datasource"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "demoPI1 (created/revived@2023-02-13 14:27:41)",
-          "value": "7d9b75130a83344e626b15605026e6"
-        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
@@ -2474,11 +2464,6 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "v_demopi1_node0001",
-          "value": "v_demopi1_node0001"
-        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
@@ -2501,11 +2486,6 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "general",
-          "value": "general"
-        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"

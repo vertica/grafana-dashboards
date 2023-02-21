@@ -59,3 +59,10 @@ def test_refresh(dashboard_json):
     assert "refresh" in j
     # All dashboards must have 5s refresh by default
     assert j["refresh"] == "5s"
+
+
+def test_current(dashboard_json):
+    j = dashboard_json
+    templating_list = j['templating']['list']
+    for t in templating_list:
+        assert "current" not in t

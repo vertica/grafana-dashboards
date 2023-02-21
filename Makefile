@@ -33,10 +33,14 @@ help: ## Display this help.
 test: pep8 ## Verify the dashboards
 	pytest --verbose --directory=$(REPO_DIR)/dashboards
 
+.PHONY: fix-template 
+fix-template: ## Remove fields related to a dashboard run
+	./scripts/fix_template.py --directory=$(REPO_DIR)/dashboards
+
 .PHONY: pep8
 pep8: ## Ensures python code conforms to PEP8
-	pycodestyle tests/*py
+	pycodestyle tests/*py scripts/*py
 
 .PHONY: fix-pep8
 fix-pep8: ## Automatically fixes any PEP8 violations
-	autopep8 --in-place tests/*py
+	autopep8 --in-place tests/*py scripts/*py
