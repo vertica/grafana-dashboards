@@ -65,7 +65,7 @@
         "content": "<img src=\"https://www.vertica.com/wp-content/uploads/2017/09/vertica_wht_rgb@2x.png\"/>",
         "mode": "html"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -111,80 +111,6 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "Current database's name",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "semi-dark-blue",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 24,
-        "x": 0,
-        "y": 3
-      },
-      "id": 98,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "/^db_name$/",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "exemplar": false,
-          "expr": "vertica_db_info{revive_instance_id=~\"$db_name\"}",
-          "instant": false,
-          "interval": "",
-          "legendFormat": "{{db_name}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Database",
-      "transformations": [
-        {
-          "id": "reduce",
-          "options": {
-            "labelsToFields": true,
-            "reducers": [
-              "last"
-            ]
-          }
-        }
-      ],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
       "description": "The total number of nodes in the cluster",
       "fieldConfig": {
         "defaults": {
@@ -208,7 +134,7 @@
         "h": 3,
         "w": 4,
         "x": 0,
-        "y": 6
+        "y": 3
       },
       "id": 106,
       "options": {
@@ -225,7 +151,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -276,7 +202,7 @@
         "h": 3,
         "w": 5,
         "x": 4,
-        "y": 6
+        "y": 3
       },
       "id": 10,
       "options": {
@@ -291,7 +217,143 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "max(vertica_up_nodes_count{revive_instance_id=~\"$db_name\"})",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "Up",
+          "refId": "Up"
+        }
+      ],
+      "title": "Up Nodes",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Reports the number of read-only nodes in the cluster, when the cluster is in read-only mode. ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "#e02fc5",
+                "value": null
+              },
+              {
+                "color": "#1fc4ae",
+                "value": 30
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 9,
+        "y": 3
+      },
+      "id": 118,
+      "options": {
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum(vertica_is_readonly{revive_instance_id=~\"$db_name\"})",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "Read-Only",
+          "refId": "Read-Only"
+        }
+      ],
+      "title": "Read-Only Nodes",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "The number of nodes with low disk space available for the selected storage usage.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#e70dc0",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 14,
+        "y": 3
+      },
+      "id": 111,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -299,16 +361,244 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "max(vertica_up_nodes_count{revive_instance_id=~\"$db_name\"})",
-          "hide": false,
+          "expr": "count(count by(node_name) (vertica_disk_storage_free_percent{revive_instance_id=~\"$db_name\",storage_usage=~\"$storage_usage\"} < 40))",
           "instant": false,
           "interval": "",
-          "legendFormat": "Up",
-          "refId": "B"
+          "legendFormat": "{{storage_usage}}",
+          "refId": "A"
         }
       ],
-      "title": "Up Nodes",
-      "type": "gauge"
+      "title": "Nodes With Disk Space Usage  > 60% (Low)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "If license limits the size of the database, this indicates how many MB the license is for.",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-purple",
+                "value": null
+              }
+            ]
+          },
+          "unit": "mbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 19,
+        "y": 3
+      },
+      "id": 59,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": false,
+          "expr": "max(vertica_license_size_mb{revive_instance_id=~\"$db_name\"})",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "License Size",
+          "refId": "A"
+        }
+      ],
+      "title": "License Size",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "If license limits the number of nodes in the database, this indicates how many nodes are allowed",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-purple",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 0,
+        "y": 6
+      },
+      "id": 57,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "max(vertica_license_node_count{revive_instance_id=~\"$db_name\"})",
+          "interval": "",
+          "legendFormat": "License Node Count",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "License Node Count",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Monitors cluster health status by tracking the number of up nodes and read-only nodes",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-purple",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 4,
+        "y": 6
+      },
+      "id": 119,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "max(vertica_up_nodes_count{revive_instance_id=~\"$db_name\"})",
+          "interval": "",
+          "legendFormat": "Up Node Count",
+          "range": true,
+          "refId": "Up"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum(vertica_is_readonly{revive_instance_id=~\"$db_name\"})",
+          "hide": false,
+          "legendFormat": "Read-Only Node Count",
+          "range": true,
+          "refId": "Read-Only"
+        }
+      ],
+      "title": "Cluster Health",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -355,7 +645,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -391,14 +681,155 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "The number of nodes with low disk space available for the selected storage usage.",
+      "description": "The total compressed size of the data.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "#e70dc0",
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "semi-dark-purple",
+                "value": null
+              }
+            ]
+          },
+          "unit": "mbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 14,
+        "y": 6
+      },
+      "id": 117,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "max(vertica_data_size_compressed_mb{revive_instance_id=~\"$db_name\"})",
+          "interval": "",
+          "legendFormat": "Compressed Total Data Size",
+          "refId": "A"
+        }
+      ],
+      "title": "Compressed Total Data Size",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "The number of attempted query requests.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "light-blue",
             "mode": "fixed"
           },
           "mappings": [],
+          "min": 0,
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 19,
+        "y": 6
+      },
+      "id": 26,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Attempted queries details",
+          "url": "/d/queries/queries?orgId=1&viewPanel=14"
+        }
+      ],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum(increase(vertica_query_requests_attempted_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Attempted",
+          "refId": "A"
+        }
+      ],
+      "title": "Attempted Query Requests",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "The number of processed queries rows over the selected time range.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "super-light-blue",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "min": 0,
+          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -414,135 +845,13 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 5,
-        "x": 14,
-        "y": 6
-      },
-      "id": 111,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "vertical",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "exemplar": true,
-          "expr": "count(count by(node_name) (vertica_disk_storage_free_percent{revive_instance_id=~\"$db_name\",storage_usage=~\"$storage_usage\"} < 40))",
-          "instant": false,
-          "interval": "",
-          "legendFormat": "{{storage_usage}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Nodes With Disk Space Usage  > 60% (Low)",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "description": "If license limits the size of the database, this indicates how many MB the license is for.",
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "light-purple",
-                "value": null
-              }
-            ]
-          },
-          "unit": "mbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 5,
-        "x": 19,
-        "y": 6
-      },
-      "id": 59,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "exemplar": false,
-          "expr": "max(vertica_license_size_mb{revive_instance_id=~\"$db_name\"})",
-          "format": "time_series",
-          "interval": "",
-          "legendFormat": "License Size",
-          "refId": "A"
-        }
-      ],
-      "title": "License Size",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "description": "If license limits the number of nodes in the database, this indicates how many nodes are allowed",
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "light-purple",
-                "value": null
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
         "w": 4,
         "x": 0,
         "y": 9
       },
-      "id": 57,
+      "id": 30,
       "options": {
-        "colorMode": "none",
+        "colorMode": "value",
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
@@ -555,21 +864,23 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "max(vertica_license_node_count{revive_instance_id=~\"$db_name\"})",
+          "expr": "sum(increase(vertica_query_requests_processed_rows_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
           "interval": "",
-          "legendFormat": "License Node Count",
+          "legendFormat": "processed rows",
+          "range": true,
           "refId": "A"
         }
       ],
-      "title": "License Node Count",
+      "title": "Query Requests Processed Rows",
       "type": "stat"
     },
     {
@@ -619,7 +930,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -682,7 +993,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -704,23 +1015,25 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "The total compressed size of the data.",
+      "description": "The number of queued query requests.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "fixedColor": "#0ad595",
+            "mode": "fixed"
           },
           "mappings": [],
+          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "semi-dark-purple",
+                "color": "#ffbffa",
                 "value": null
               }
             ]
           },
-          "unit": "mbytes"
+          "unit": "short"
         },
         "overrides": []
       },
@@ -730,12 +1043,12 @@
         "x": 14,
         "y": 9
       },
-      "id": 117,
+      "id": 90,
       "options": {
-        "colorMode": "value",
+        "colorMode": "none",
         "graphMode": "area",
         "justifyMode": "auto",
-        "orientation": "auto",
+        "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
             "last"
@@ -743,9 +1056,10 @@
           "fields": "",
           "values": false
         },
+        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -753,13 +1067,13 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "max(vertica_data_size_compressed_mb{revive_instance_id=~\"$db_name\"})",
+          "expr": "sum(vertica_queued_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=\"general\"})",
           "interval": "",
-          "legendFormat": "Compressed Total Data Size",
+          "legendFormat": "Queued",
           "refId": "A"
         }
       ],
-      "title": "Compressed Total Data Size",
+      "title": "Queued Queries (Database)",
       "type": "stat"
     },
     {
@@ -767,21 +1081,20 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "The number of attempted query requests.",
+      "description": "The number of running queries.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "light-blue",
+            "fixedColor": "#9d06c4",
             "mode": "fixed"
           },
           "mappings": [],
-          "min": 0,
           "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-blue",
+                "color": "#69bf99",
                 "value": null
               }
             ]
@@ -796,16 +1109,9 @@
         "x": 19,
         "y": 9
       },
-      "id": 26,
-      "links": [
-        {
-          "targetBlank": true,
-          "title": "Attempted queries details",
-          "url": "/d/queries/queries?orgId=1&viewPanel=14"
-        }
-      ],
+      "id": 55,
       "options": {
-        "colorMode": "value",
+        "colorMode": "none",
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
@@ -818,92 +1124,21 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(increase(vertica_query_requests_attempted_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
-          "instant": false,
+          "expr": "sum(vertica_resource_pool_running_query_count{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=\"general\"})",
           "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "Attempted",
+          "legendFormat": "Running",
           "refId": "A"
         }
       ],
-      "title": "Attempted Query Requests",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "description": "The number of processed queries rows over the selected time range.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "super-light-blue",
-            "mode": "fixed"
-          },
-          "mappings": [],
-          "min": 0,
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 0,
-        "y": 12
-      },
-      "id": 30,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "sum(increase(vertica_query_requests_processed_rows_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
-          "interval": "",
-          "legendFormat": "processed rows",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Query Requests Processed Rows",
+      "title": "Running Queries (Database)",
       "type": "stat"
     },
     {
@@ -956,7 +1191,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -1025,7 +1260,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -1043,141 +1278,10 @@
       ],
       "title": "Failed Query Requests",
       "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "description": "The number of queued query requests.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "#0ad595",
-            "mode": "fixed"
-          },
-          "mappings": [],
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#ffbffa",
-                "value": null
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 5,
-        "x": 14,
-        "y": 12
-      },
-      "id": 90,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "exemplar": true,
-          "expr": "sum(vertica_queued_requests_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=\"general\"})",
-          "interval": "",
-          "legendFormat": "Queued",
-          "refId": "A"
-        }
-      ],
-      "title": "Queued Queries (Database)",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
-      },
-      "description": "The number of running queries.",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "#9d06c4",
-            "mode": "fixed"
-          },
-          "mappings": [],
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#69bf99",
-                "value": null
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 5,
-        "x": 19,
-        "y": 12
-      },
-      "id": 55,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.3.6",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "exemplar": true,
-          "expr": "sum(vertica_resource_pool_running_query_count{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=\"general\"})",
-          "interval": "",
-          "legendFormat": "Running",
-          "refId": "A"
-        }
-      ],
-      "title": "Running Queries (Database)",
-      "type": "stat"
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 37,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [
     "vertica-eon"
@@ -1185,6 +1289,11 @@
   "templating": {
     "list": [
       {
+        "current": {
+          "selected": false,
+          "text": "Prometheus",
+          "value": "Prometheus"
+        },
         "hide": 0,
         "includeAll": false,
         "label": "Data Source",
@@ -1198,6 +1307,11 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "vertdb (created/revived@2023-09-12 23:09:20)",
+          "value": "77b3bc02974305573614e3c2310b49"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
@@ -1220,6 +1334,11 @@
         "type": "query"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
@@ -1243,6 +1362,11 @@
       },
       {
         "allValue": "",
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
@@ -1265,6 +1389,11 @@
         "type": "query"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
@@ -1288,6 +1417,11 @@
       },
       {
         "allValue": "",
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
@@ -1310,6 +1444,11 @@
         "type": "query"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "CATALOG",
+          "value": "CATALOG"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
