@@ -254,8 +254,12 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "dark-blue",
+                "color": "#e02fc5",
                 "value": null
+              },
+              {
+                "color": "#1fc4ae",
+                "value": 30
               }
             ]
           },
@@ -282,7 +286,8 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
       },
       "pluginVersion": "9.5.1",
       "targets": [
@@ -497,14 +502,43 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "The ending time of the last audit",
+      "description": "Monitors cluster health status by tracking the number of up nodes and read-only nodes",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
-          "noValue": "No Audit",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -514,7 +548,7 @@
               }
             ]
           },
-          "unit": "dateTimeAsLocal"
+          "unit": "short"
         },
         "overrides": []
       },
@@ -524,20 +558,18 @@
         "x": 4,
         "y": 6
       },
-      "id": 113,
+      "id": 119,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
         },
-        "textMode": "auto"
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "pluginVersion": "9.5.1",
       "targets": [
@@ -546,15 +578,30 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "max(vertica_last_audit_end_time{revive_instance_id=~\"$db_name\"}>0)",
+          "expr": "max(vertica_up_nodes_count{revive_instance_id=~\"$db_name\"})",
           "interval": "",
-          "legendFormat": "Last Audit Ending Time",
-          "refId": "A"
+          "legendFormat": "Up Node Count",
+          "range": true,
+          "refId": "Up"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum(vertica_is_readonly{revive_instance_id=~\"$db_name\"})",
+          "hide": false,
+          "legendFormat": "Read-Only Node Count",
+          "range": true,
+          "refId": "Read-Only"
         }
       ],
-      "title": "Last Audit Ending Time",
-      "type": "stat"
+      "title": "Cluster Health",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -844,26 +891,24 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "The number of completed query requests.",
+      "description": "The ending time of the last audit",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "#4ba68a",
-            "mode": "fixed"
+            "mode": "thresholds"
           },
           "mappings": [],
-          "min": 0,
-          "noValue": "0",
+          "noValue": "No Audit",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "light-purple",
                 "value": null
               }
             ]
           },
-          "unit": "short"
+          "unit": "dateTimeAsLocal"
         },
         "overrides": []
       },
@@ -873,10 +918,10 @@
         "x": 4,
         "y": 9
       },
-      "id": 107,
+      "id": 113,
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
@@ -886,7 +931,6 @@
           "fields": "",
           "values": false
         },
-        "text": {},
         "textMode": "auto"
       },
       "pluginVersion": "9.5.1",
@@ -896,16 +940,14 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum(increase(vertica_query_requests_succeeded_total{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",pool_name=~\"$pool_name\",request_type=~\"$request_type\"}[$__range]))",
+          "exemplar": true,
+          "expr": "max(vertica_last_audit_end_time{revive_instance_id=~\"$db_name\"}>0)",
           "interval": "",
-          "legendFormat": "Completed",
-          "range": true,
+          "legendFormat": "Last Audit Ending Time",
           "refId": "A"
         }
       ],
-      "title": "Completed Query Requests",
+      "title": "Last Audit Ending Time",
       "type": "stat"
     },
     {
@@ -1331,6 +1373,11 @@
   "templating": {
     "list": [
       {
+        "current": {
+          "selected": false,
+          "text": "Prometheus",
+          "value": "Prometheus"
+        },
         "hide": 0,
         "includeAll": false,
         "label": "Data Source",
@@ -1344,6 +1391,11 @@
         "type": "datasource"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "vertdb (created/revived@2023-09-12 23:09:20)",
+          "value": "77b3bc02974305573614e3c2310b49"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
@@ -1366,6 +1418,11 @@
         "type": "query"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
@@ -1389,6 +1446,11 @@
       },
       {
         "allValue": "",
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
@@ -1411,6 +1473,11 @@
         "type": "query"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
@@ -1434,6 +1501,11 @@
       },
       {
         "allValue": "",
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
@@ -1456,6 +1528,11 @@
         "type": "query"
       },
       {
+        "current": {
+          "selected": false,
+          "text": "CATALOG",
+          "value": "CATALOG"
+        },
         "datasource": {
           "type": "prometheus",
           "uid": "prometheus"
