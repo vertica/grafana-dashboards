@@ -438,18 +438,8 @@
       "description": "If license limits the number of nodes in the database, this indicates how many nodes are allowed",
       "fieldConfig": {
         "defaults": {
-          "mappings": [
-            {
-              "options": {
-                "-1": {
-                  "index": 0,
-                  "text": "unlimited"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "noValue": "unlimited",
+          "mappings": [],
+          "noValue": "Unlimited",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1243,7 +1233,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(increase(vertica_errors{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range]))",
+          "expr": "sum(increase(vertica_errors{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\",error_level=~\"ERROR|FATAL|PANIC\"}[$__range]))",
           "interval": "",
           "legendFormat": "Errors",
           "range": true,
@@ -1251,6 +1241,75 @@
         }
       ],
       "title": "Errors",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "The number of locked users.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#e02fb6",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "min": 0,
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 9,
+        "y": 12
+      },
+      "id": 122,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "max(vertica_locked_users{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"})",
+          "interval": "",
+          "legendFormat": "Locked Users",
+          "range": true,
+          "refId": "Locked Users"
+        }
+      ],
+      "title": "Locked Users",
       "type": "stat"
     },
     {
@@ -1569,6 +1628,6 @@
   "timezone": "",
   "title": "Vertica / EON / Overview",
   "uid": "vertica-eon-cluster-overview",
-  "version": 3,
+  "version": 5,
   "weekStart": ""
 }
