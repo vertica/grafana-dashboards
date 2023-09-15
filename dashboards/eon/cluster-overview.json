@@ -438,7 +438,18 @@
       "description": "If license limits the number of nodes in the database, this indicates how many nodes are allowed",
       "fieldConfig": {
         "defaults": {
-          "mappings": [],
+          "mappings": [
+            {
+              "options": {
+                "-1": {
+                  "index": 0,
+                  "text": "unlimited"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "noValue": "unlimited",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -482,7 +493,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "max(vertica_license_node_count{revive_instance_id=~\"$db_name\"})",
+          "expr": "max(vertica_license_node_count{revive_instance_id=~\"$db_name\"}>0)",
           "interval": "",
           "legendFormat": "License Node Count",
           "range": true,
@@ -546,10 +557,12 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "max(vertica_last_audit_end_time{revive_instance_id=~\"$db_name\"}>0)",
+          "expr": "max(vertica_last_audit_end_time{revive_instance_id=~\"$db_name\"}>0) + (2451545-2440588)*(1000000*60*60*24)/1000",
           "interval": "",
           "legendFormat": "Last Audit Ending Time",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1172,6 +1185,75 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "The number of errors over the selected time range.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#e02fb6",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "min": 0,
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 4,
+        "y": 12
+      },
+      "id": 121,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(increase(vertica_errors{revive_instance_id=~\"$db_name\",node_name=~\"$node_name\"}[$__range]))",
+          "interval": "",
+          "legendFormat": "Errors",
+          "range": true,
+          "refId": "Errors"
+        }
+      ],
+      "title": "Errors",
+      "type": "stat"
+    },
+    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
@@ -1487,6 +1569,6 @@
   "timezone": "",
   "title": "Vertica / EON / Overview",
   "uid": "vertica-eon-cluster-overview",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
