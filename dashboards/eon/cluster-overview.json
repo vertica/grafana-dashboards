@@ -1479,6 +1479,7 @@
         "name": "datasource",
         "options": [],
         "query": "prometheus",
+        "queryValue": "",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1487,7 +1488,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "${datasource}"
         },
         "definition": "vertica_db_info",
         "hide": 0,
@@ -1509,7 +1510,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "${datasource}"
         },
         "definition": "vertica_subcluster_info{revive_instance_id=\"$db_name\"}",
         "hide": 0,
@@ -1532,7 +1533,7 @@
         "allValue": "",
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "${datasource}"
         },
         "definition": "vertica_total_nodes_count{revive_instance_id=\"$db_name\",subcluster_oid=~\"$subcluster_name\"}",
         "hide": 0,
@@ -1554,7 +1555,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "${datasource}"
         },
         "definition": "label_values(vertica_resource_pool_memory_size_actual_kb,pool_name)",
         "hide": 0,
@@ -1577,7 +1578,7 @@
         "allValue": "",
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "${datasource}"
         },
         "definition": "label_values(request_type)",
         "hide": 0,
@@ -1599,7 +1600,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "${datasource}"
         },
         "definition": "label_values(storage_usage)",
         "hide": 0,
@@ -1628,6 +1629,6 @@
   "timezone": "",
   "title": "Vertica / EON / Overview",
   "uid": "vertica-eon-cluster-overview",
-  "version": 5,
+  "version": 1,
   "weekStart": ""
 }
