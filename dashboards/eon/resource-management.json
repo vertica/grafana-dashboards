@@ -65,7 +65,7 @@
         "content": "<img src=\"https://www.vertica.com/wp-content/uploads/2017/09/vertica_wht_rgb@2x.png\"/>",
         "mode": "html"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -153,7 +153,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -218,7 +218,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -282,7 +282,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -347,7 +347,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -411,7 +411,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -475,7 +475,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -539,7 +539,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -629,7 +629,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -694,7 +694,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -759,7 +759,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -824,7 +824,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -889,7 +889,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -953,7 +953,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -1525,7 +1525,9 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
             "inspect": false
           },
           "mappings": [],
@@ -1549,7 +1551,9 @@
       },
       "id": 49,
       "options": {
+        "cellHeight": "sm",
         "footer": {
+          "countRows": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -1558,7 +1562,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -1676,7 +1680,9 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
             "inspect": false
           },
           "mappings": [],
@@ -1720,7 +1726,9 @@
       },
       "id": 52,
       "options": {
+        "cellHeight": "sm",
         "footer": {
+          "countRows": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -1729,7 +1737,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -1835,7 +1843,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -1899,7 +1907,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -1963,7 +1971,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "9.5.1",
       "targets": [
         {
           "datasource": {
@@ -2421,7 +2429,7 @@
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 37,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [
     "vertica-eon"
@@ -2436,6 +2444,7 @@
         "name": "datasource",
         "options": [],
         "query": "prometheus",
+        "queryValue": "",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -2444,7 +2453,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "${datasource}"
         },
         "definition": "vertica_db_info",
         "hide": 0,
@@ -2466,7 +2475,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "${datasource}"
         },
         "definition": "vertica_subcluster_info{revive_instance_id=\"$db_name\"}",
         "hide": 0,
@@ -2488,7 +2497,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "${datasource}"
         },
         "definition": "vertica_total_nodes_count{revive_instance_id=\"$db_name\",subcluster_oid=~\"$subcluster_name\"}",
         "hide": 0,
@@ -2510,7 +2519,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "${datasource}"
         },
         "definition": "label_values(vertica_resource_pool_memory_size_actual_kb,pool_name)",
         "hide": 0,
