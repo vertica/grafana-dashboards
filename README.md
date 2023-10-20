@@ -4,8 +4,8 @@ This repository provides various dashboards that can be imported into Grafana to
 
 Unless otherwise stated, all released dashboards will be compatible with new versions of the server. Pay attention to new dashboards as they may use metrics that are only available in a specific Vertica version. This chart will show compatibility of all of the released dashboards.
 
-## eon/cluster-overview.json
-* Title: Vertica / EON / Overview
+## cluster-overview.json
+* Title: Vertica / Overview
 * Description: Provides a general overview of a cluster. This is meant as the initial landing page in Grafana.
 * grafana.com Dashboard ID: *TBD*
 
@@ -13,8 +13,8 @@ Unless otherwise stated, all released dashboards will be compatible with new ver
 | --- | --- | --- | --- |
 | 1 | 1.0.0 | 12.0.4 |
 
-## eon/queries.json
-* Title: Vertica / EON / Queries
+## queries.json
+* Title: Vertica / Queries
 * Description: Provides detailed information about queries that are running in the cluster.
 * grafana.com Dashboard ID: *TBD*
 
@@ -22,8 +22,8 @@ Unless otherwise stated, all released dashboards will be compatible with new ver
 | --- | --- | --- | --- |
 | 1 | 1.0.0 | 12.0.4 |
 
-## eon/resource-management.json
-* Title: Vertica / EON / Resource Management
+## resource-management.json
+* Title: Vertica / Resource Management
 * Description: Provides insight into the usage of the various resource pools
 * grafana.com Dashboard ID: *TBD*
 
@@ -31,36 +31,9 @@ Unless otherwise stated, all released dashboards will be compatible with new ver
 | --- | --- | --- | --- |
 | 1 | 1.0.0 | 12.0.4 |
 
-## eon/depot.json
-* Title: Vertica / EON / Depot
+## depot.json
+* Title: Vertica / Depot
 * Description: Provides insight into the usage of the depot
-* grafana.com Dashboard ID: *TBD*
-
-| Revision | Release | Vertica Server (min) | Vertica Server (max) |
-| --- | --- | --- | --- |
-| 1 | 1.0.0 | 12.0.4 |
-
-## enterprise/cluster-overview.json
-* Title: Vertica / Enterprise / Overview
-* Description: Provides a general overview of a cluster. This is meant as the initial landing page in Grafana.
-* grafana.com Dashboard ID: *TBD*
-
-| Revision | Release | Vertica Server (min) | Vertica Server (max) |
-| --- | --- | --- | --- |
-| 1 | 1.0.0 | 12.0.4 |
-
-## enterprise/resource-management.json
-* Title: Vertica / Enterprise / Resource Management
-* Description: Provides insight into the usage of the various resource pools
-* grafana.com Dashboard ID: *TBD*
-
-| Revision | Release | Vertica Server (min) | Vertica Server (max) |
-| --- | --- | --- | --- |
-| 1 | 1.0.0 | 12.0.4 |
-
-## enterprise/queries.json
-* Title: Vertica / Enterprise / Queries
-* Description: Provides detailed information about queries that are running in the cluster.
 * grafana.com Dashboard ID: *TBD*
 
 | Revision | Release | Vertica Server (min) | Vertica Server (max) |
