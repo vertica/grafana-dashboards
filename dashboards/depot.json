@@ -2034,8 +2034,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Vertica / EON / Depot",
-  "uid": "vertica-eon-depot",
+  "title": "Vertica / Depot",
+  "uid": "vertica-depot",
   "version": 1,
   "weekStart": ""
 }

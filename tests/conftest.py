@@ -30,12 +30,12 @@ def pytest_addoption(parser):
 def pytest_generate_tests(metafunc):
     if "dashboard_file" in metafunc.fixturenames:
         d = metafunc.config.getoption("directory")
-        deployment_types = next(walk(d), (None, None, []))[1]
-        parms = []
-        for dpt in deployment_types:
-            filenames = next(walk(f"{d}/{dpt}"), (None, None, []))[2]
-            dpt_parms = [f"{d}/{dpt}/{f}" for f in filenames]
-            parms.extend(dpt_parms)
+        # Directly get filenames in the specified directory
+        filenames = next(walk(d), (None, None, []))[2]
+        # Filter out only JSON files (assuming all dashboard files are JSON)
+        json_files = [f for f in filenames if f.endswith('.json')]
+        # Construct the full paths for these files
+        parms = [os.path.join(d, f) for f in json_files]
         metafunc.parametrize("dashboard_file", parms)
 
 
@@ -45,6 +45,6 @@ def dashboard_json(dashboard_file):
         j = json.load(f)
     # Add our own extra meta-data so that its available for test
     j['full_path'] = dashboard_file
-    j['deployment_type'] = os.path.dirname(dashboard_file).split('/')[-1]
+    j['deployment_type'] = 'eon'
     j['file_name'] = os.path.basename(dashboard_file)
     return j

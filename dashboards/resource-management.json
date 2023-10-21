@@ -2546,8 +2546,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Vertica / EON / Resource Management",
-  "uid": "vertica-eon-resource-management",
+  "title": "Vertica / Resource Management",
+  "uid": "vertica-resource-management",
   "version": 1,
   "weekStart": ""
 }
