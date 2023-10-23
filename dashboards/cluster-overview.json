@@ -1627,8 +1627,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Vertica / EON / Overview",
-  "uid": "vertica-eon-cluster-overview",
+  "title": "Vertica / Overview",
+  "uid": "vertica-cluster-overview",
   "version": 1,
   "weekStart": ""
 }

@@ -31,12 +31,9 @@ def test_vertica_tag(dashboard_json):
 
 def test_stable_uid(dashboard_json):
     dashboard_name = dashboard_json['file_name']
-    deployment_type = dashboard_json['deployment_type']
-    # The uids is going to the dashboard name striped of its suffix, plus the
-    # deployment type
+    # The uids is going to the dashboard name striped of its suffix
     assert dashboard_name.endswith(".json")
-    uid = "vertica-{}-{}".format(deployment_type,
-                                 dashboard_name[:-len(".json")])
+    uid = "vertica-{}".format(dashboard_name[:-len(".json")])
     assert dashboard_json["uid"] == uid
 
 
@@ -66,3 +63,11 @@ def test_current(dashboard_json):
     templating_list = j['templating']['list']
     for t in templating_list:
         assert "current" not in t
+
+
+def test_datasource(dashboard_json):
+    j = dashboard_json
+    templating_list = j['templating']['list']
+    for t in templating_list:
+        if t['name'] != 'datasource':
+            assert t['datasource']['uid'] == "${datasource}"

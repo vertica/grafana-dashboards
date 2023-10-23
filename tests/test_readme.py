@@ -50,7 +50,7 @@ def get_dashboard_in_readme(dashboard_json):
     print(deployment_type)
     dashboard_name = dashboard_json['file_name']
     print(dashboard_name)
-    db_title = f"{deployment_type}/{dashboard_name}"
+    db_title = dashboard_name
     assert db_title in dashboards_in_readme, \
         f"Dashboard {db_title} is missing in README"
     return dashboards_in_readme[db_title]
