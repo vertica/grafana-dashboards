@@ -11,7 +11,7 @@ Unless otherwise stated, all released dashboards will be compatible with new ver
 
 | Revision | Release | Vertica Server (min) | Vertica Server (max) |
 | --- | --- | --- | --- |
-| 1 | 1.0.0 | 12.0.4 |
+| 1 | 1.0.0 | 23.3.0 |
 
 ## queries.json
 * Title: Vertica / Queries
@@ -20,7 +20,7 @@ Unless otherwise stated, all released dashboards will be compatible with new ver
 
 | Revision | Release | Vertica Server (min) | Vertica Server (max) |
 | --- | --- | --- | --- |
-| 1 | 1.0.0 | 12.0.4 |
+| 1 | 1.0.0 | 23.3.0 |
 
 ## resource-management.json
 * Title: Vertica / Resource Management
@@ -29,7 +29,7 @@ Unless otherwise stated, all released dashboards will be compatible with new ver
 
 | Revision | Release | Vertica Server (min) | Vertica Server (max) |
 | --- | --- | --- | --- |
-| 1 | 1.0.0 | 12.0.4 |
+| 1 | 1.0.0 | 23.3.0 |
 
 ## depot.json
 * Title: Vertica / Depot
@@ -38,7 +38,7 @@ Unless otherwise stated, all released dashboards will be compatible with new ver
 
 | Revision | Release | Vertica Server (min) | Vertica Server (max) |
 | --- | --- | --- | --- |
-| 1 | 1.0.0 | 12.0.4 |
+| 1 | 1.0.0 | 23.3.0 |
 
 <details><summary>Dashboard table template</summary>
 ## dashboard name
