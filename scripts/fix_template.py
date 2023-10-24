@@ -29,12 +29,12 @@ def main(argv):
             sys.exit()
         elif opt in ("-d", "--directory"):
             directory = arg
-    deployment_types = next(walk(directory), (None, None, []))[1]
-    parms = []
-    for dpt in deployment_types:
-        filenames = next(walk(f"{directory}/{dpt}"), (None, None, []))[2]
-        dpt_parms = [f"{directory}/{dpt}/{f}" for f in filenames]
-        parms.extend(dpt_parms)
+    # Directly get filenames in the specified directory
+    filenames = next(walk(directory), (None, None, []))[2]
+    # Filter out only JSON files (assuming all dashboard files are JSON)
+    json_files = [f for f in filenames if f.endswith('.json')]
+    # Construct the full paths for these files
+    parms = [os.path.join(directory, f) for f in json_files]
     for p in parms:
         remove_selected_text(p)
     print("============= Dashboards are valid now ==============")
