@@ -31,16 +31,30 @@ def get_readme():
 def get_dashboards_in_readme():
     readme = get_readme()
     dashboards = {}
+    cur_fn = None
+    cur_title = None
     for e in readme:
+        # The format of the dashboard is:
+        # <h2>title</h2>
+        # <p><code>filename</code></p>
+        # <p>badges</p>
+        # <p>description</p>
         if e.name == 'h2':
-            dash = {}
-            dashboards[e.text] = dash
-        if e.name == 'ul':
-            for le in e.find_all('li'):
-                kv = le.text.split(":")
-                if len(kv) < 2:
-                    continue
-                dash[kv[0]] = kv[1].strip()
+            cur_title = e.text
+        elif cur_title is not None:
+            if e.name == 'p':
+                code = e.find_all('code')
+                img = e.find_all('img')
+                if len(code) > 0:  # filename
+                    cur_fn = e.text
+                    dash = {"Title": cur_title}
+                    dashboards[cur_fn] = dash
+                elif len(img) > 0:  # badges
+                    pass
+                else:  # description
+                    dashboards[cur_fn]["Description"] = e.text
+                    cur_title = None
+                    cur_fn = None
     return dashboards
 
 

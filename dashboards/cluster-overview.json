@@ -21,7 +21,7 @@
       }
     ]
   },
-  "description": "Provides a general overview of a cluster. This is meant as the initial landing page in Grafana.",
+  "description": "General cluster overview. This dashboard is designed to be the initial landing page in Grafana.",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
@@ -1627,7 +1627,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Vertica / Overview",
+  "title": "Cluster overview",
   "uid": "vertica-cluster-overview",
   "version": 1,
   "weekStart": ""

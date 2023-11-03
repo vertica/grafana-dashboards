@@ -21,7 +21,7 @@
       }
     ]
   },
-  "description": "Provides detailed information about queries that are running in the cluster.",
+  "description": "Detailed information about queries that are currently running in a cluster.",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
@@ -1334,7 +1334,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Vertica / Queries",
+  "title": "Queries",
   "uid": "vertica-queries",
   "version": 1,
   "weekStart": ""

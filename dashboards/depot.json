@@ -21,7 +21,7 @@
       }
     ]
   },
-  "description": "Provides insight into the usage of the depot",
+  "description": "Details about depot usage.",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
@@ -2034,7 +2034,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Vertica / Depot",
+  "title": "Depot",
   "uid": "vertica-depot",
   "version": 1,
   "weekStart": ""

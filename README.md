@@ -1,56 +1,43 @@
-This repository provides various dashboards that can be imported into Grafana to visualize the Prometheus metrics that Vertica supports. Dashboards can be downloaded from the Release section. Each time we Release a dashboard here it is uploaded to grafana.com. You can either download the JSON here or import it directly from grafana.com using the dashboard ID.
+This repository contains dashboards that you can import into [Grafana](https://grafana.com/) to visualize time series metrics about Vertica. Each dashboard is available for download in JSON format from [Releases](https://github.com/vertica/grafana-dashboards/releases) or directly from [Grafana Dashboards](https://grafana.com/grafana/dashboards/).
 
 # Dashboards
 
-Unless otherwise stated, all released dashboards will be compatible with new versions of the server. Pay attention to new dashboards as they may use metrics that are only available in a specific Vertica version. This chart will show compatibility of all of the released dashboards.
+Unless explicitly noted, all dashboards are compatible with new Vertica server versions. The minimum supported Vertica version is listed with the release version in the following dashboard sections.
 
-## cluster-overview.json
-* Title: Vertica / Overview
-* Description: Provides a general overview of a cluster. This is meant as the initial landing page in Grafana.
-* grafana.com Dashboard ID: *TBD*
+Some dashboards might use metrics that are available in specific Vertica versions. Review the [Prometheus metrics](https://docs.vertica.com/latest/en/admin/managing-db/https-service/prometheus-metrics/) to verify which metrics are available in each Vertica version.
 
-| Revision | Release | Vertica Server (min) | Vertica Server (max) |
-| --- | --- | --- | --- |
-| 1 | 1.0.0 | 23.3.0 |
+## Cluster overview
 
-## queries.json
-* Title: Vertica / Queries
-* Description: Provides detailed information about queries that are running in the cluster.
-* grafana.com Dashboard ID: *TBD*
+`cluster-overview.json`
 
-| Revision | Release | Vertica Server (min) | Vertica Server (max) |
-| --- | --- | --- | --- |
-| 1 | 1.0.0 | 23.3.0 |
+[![revision](https://img.shields.io/badge/revision-1-orange.svg)](https://example.com) [![release](https://img.shields.io/badge/release-1.0.0-green.svg)](https://github.com/vertica/grafana-dashboards/releases) [![Dashboard ID](https://img.shields.io/badge/Dashboard_ID-TBD-yellow.svg)](https://grafana.com/grafana/dashboards/?search=TBD) [![Vertica compatibility](https://img.shields.io/badge/Vertica-v23.3.0-blue.svg)](https://docs.vertica.com/latest/en/)
 
-## resource-management.json
-* Title: Vertica / Resource Management
-* Description: Provides insight into the usage of the various resource pools
-* grafana.com Dashboard ID: *TBD*
+General cluster overview. This dashboard is designed to be the initial landing page in Grafana.
 
-| Revision | Release | Vertica Server (min) | Vertica Server (max) |
-| --- | --- | --- | --- |
-| 1 | 1.0.0 | 23.3.0 |
+## Queries
 
-## depot.json
-* Title: Vertica / Depot
-* Description: Provides insight into the usage of the depot
-* grafana.com Dashboard ID: *TBD*
+`queries.json`
 
-| Revision | Release | Vertica Server (min) | Vertica Server (max) |
-| --- | --- | --- | --- |
-| 1 | 1.0.0 | 23.3.0 |
+[![revision](https://img.shields.io/badge/revision-1-orange.svg)](https://example.com) [![release](https://img.shields.io/badge/release-1.0.0-green.svg)](https://github.com/vertica/grafana-dashboards/releases) [![Dashboard ID](https://img.shields.io/badge/Dashboard_ID-TBD-yellow.svg)](https://img.shields.io/badge/Dashboard_ID-TBD-yellow.svg) [![Vertica compatibility](https://img.shields.io/badge/Vertica-v23.3.0-blue.svg)](https://docs.vertica.com/latest/en/)
 
-<details><summary>Dashboard table template</summary>
-## dashboard name
-* Title: *Provide a title for the dashboard*
-* Description: *provide a description of the dashboard*
-* grafana.com Dashboard ID: *the ID of the dashboard in grafana.com*
+Detailed information about [queries](https://docs.vertica.com/latest/en/data-analysis/queries/) that are currently running in a cluster.
 
-| Revision | Release | Vertica Server (min) | Vertica Server (max) |
-| --- | --- | --- | --- |
-| *Revision of dashboard in grafana.com* | *GitHub release that provided this dashboard* | *Minimum Vertica server version needed* | *If dashboard doesn't work on latest Vertica, this is the final version where it works.* |
-</details>
+## Resource management
 
-# Contributing
+`resource-management.json`
 
-We welcome contributions to this repository. Detailed information in [CONTRIBUTING.md](CONTRIBUTING.md)
+[![revision](https://img.shields.io/badge/revision-1-orange.svg)](https://example.com) [![release](https://img.shields.io/badge/release-1.0.0-green.svg)](https://github.com/vertica/grafana-dashboards/releases) [![Dashboard ID](https://img.shields.io/badge/Dashboard_ID-TBD-yellow.svg)](https://img.shields.io/badge/Dashboard_ID-TBD-yellow.svg) [![Vertica compatibility](https://img.shields.io/badge/Vertica-v23.3.0-blue.svg)](https://docs.vertica.com/latest/en/)
+
+Details about [user-defined](https://docs.vertica.com/latest/en/sql-reference/statements/create-statements/create-resource-pool/) and [built-in](<(https://docs.vertica.com/latest/en/sql-reference/statements/create-statements/create-resource-pool/built-pools/)>) resource pool usage.
+
+## Depot
+
+`depot.json`
+
+[![revision](https://img.shields.io/badge/revision-1-orange.svg)](https://example.com) [![release](https://img.shields.io/badge/release-1.0.0-green.svg)](https://github.com/vertica/grafana-dashboards/releases) [![Dashboard ID](https://img.shields.io/badge/Dashboard_ID-TBD-yellow.svg)](https://img.shields.io/badge/Dashboard_ID-TBD-yellow.svg) [![Vertica compatibility](https://img.shields.io/badge/Vertica-v23.3.0-blue.svg)](https://docs.vertica.com/latest/en/)
+
+Details about [depot](https://docs.vertica.com/latest/en/eon/depot-management/) usage.
+
+# Contribute
+
+Vertica welcomes contributions to this repository. For details, see [CONTRIBUTING.md](CONTRIBUTING.md)
