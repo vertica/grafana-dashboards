@@ -18,7 +18,7 @@ def test_json_expected_fields(dashboard_json):
     j = dashboard_json
     # Look for well-known fields that the JSON must have
     expected_fields = ["uid", "title", "tags", "panels", "schemaVersion",
-                       "version", "description", "links"]
+                       "version", "description", "links", "__requires"]
     for ef in expected_fields:
         assert ef in j
 
