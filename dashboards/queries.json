@@ -1,4 +1,44 @@
 {
+  "__inputs": [],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "9.5.1"
+    },
+    {
+      "type": "panel",
+      "id": "heatmap",
+      "name": "Heatmap",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -45,8 +85,8 @@
   "panels": [
     {
       "datasource": {
-        "type": "vertica-grafana-datasource",
-        "uid": "US_55Cc4z"
+        "type": "prometheus",
+        "uid": "${datasource}"
       },
       "gridPos": {
         "h": 2,
@@ -69,11 +109,9 @@
       "targets": [
         {
           "datasource": {
-            "type": "vertica-grafana-datasource",
-            "uid": "US_55Cc4z"
+            "type": "prometheus",
+            "uid": "${datasource}"
           },
-          "format": "time_series",
-          "rawSql": "SELECT \n$__time(end_time), \naverage_cpu_usage_percent \nFROM \nv_monitor.cpu_usage \nWHERE \n$__timeFilter(end_time)",
           "refId": "A"
         }
       ],
@@ -82,10 +120,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -94,15 +128,6 @@
       },
       "id": 12,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Queries",
       "type": "row"
     },
@@ -584,10 +609,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -596,15 +617,6 @@
       },
       "id": 7,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Query Statistics",
       "type": "row"
     },
