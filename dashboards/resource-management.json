@@ -21,7 +21,7 @@
       }
     ]
   },
-  "description": "Provides insight into the usage of the various resource pools",
+  "description": "Details about user-defined and built-in resource pool usage.",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
@@ -2546,7 +2546,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Vertica / Resource Management",
+  "title": "Resource management",
   "uid": "vertica-resource-management",
   "version": 1,
   "weekStart": ""
