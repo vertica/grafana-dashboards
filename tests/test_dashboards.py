@@ -67,6 +67,19 @@ def test_current(dashboard_json):
 
 def test_datasource(dashboard_json):
     j = dashboard_json
+    panels = j['panels']
+    # All panels must have as datasource the datasource variable
+    # of type prometheus
+    for p in panels:
+        if p['type'] != "row":
+            assert p['datasource']['type'] == "prometheus"
+            assert p['datasource']['uid'] == "${datasource}"
+            targets = p['targets']
+            for t in targets:
+                assert t['datasource']['type'] == "prometheus"
+                assert t['datasource']['uid'] == "${datasource}"
+    # All elements in the templating list must have as datasource
+    # the datasource variable of type prometheus
     templating_list = j['templating']['list']
     for t in templating_list:
         if t['name'] != 'datasource':
