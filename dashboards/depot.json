@@ -2019,7 +2019,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Depot",
+  "title": "Vertica Depot (Prometheus)",
   "uid": "vertica-depot",
   "version": 1,
   "weekStart": ""

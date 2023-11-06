@@ -1652,7 +1652,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Cluster overview",
+  "title": "Vertica Overview (Prometheus)",
   "uid": "vertica-cluster-overview",
   "version": 1,
   "weekStart": ""

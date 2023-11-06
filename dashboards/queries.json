@@ -1346,7 +1346,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Queries",
+  "title": "Vertica Queries (Prometheus)",
   "uid": "vertica-queries",
   "version": 1,
   "weekStart": ""

@@ -2512,7 +2512,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Resource management",
+  "title": "Vertica Resource Management (Prometheus)",
   "uid": "vertica-resource-management",
   "version": 1,
   "weekStart": ""
