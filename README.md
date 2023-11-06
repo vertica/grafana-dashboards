@@ -6,7 +6,7 @@ Unless explicitly noted, all dashboards are compatible with new Vertica server v
 
 Some dashboards might use metrics that are available in specific Vertica versions. Review the [Prometheus metrics](https://docs.vertica.com/latest/en/admin/managing-db/https-service/prometheus-metrics/) to verify which metrics are available in each Vertica version.
 
-## Cluster overview
+## Vertica Overview (Prometheus)
 
 `cluster-overview.json`
 
@@ -14,7 +14,7 @@ Some dashboards might use metrics that are available in specific Vertica version
 
 General cluster overview. This dashboard is designed to be the initial landing page in Grafana.
 
-## Queries
+## Vertica Queries (Prometheus)
 
 `queries.json`
 
@@ -22,7 +22,7 @@ General cluster overview. This dashboard is designed to be the initial landing p
 
 Detailed information about [queries](https://docs.vertica.com/latest/en/data-analysis/queries/) that are currently running in a cluster.
 
-## Resource management
+## Vertica Resource Management (Prometheus)
 
 `resource-management.json`
 
@@ -30,7 +30,7 @@ Detailed information about [queries](https://docs.vertica.com/latest/en/data-ana
 
 Details about [user-defined](https://docs.vertica.com/latest/en/sql-reference/statements/create-statements/create-resource-pool/) and [built-in](<(https://docs.vertica.com/latest/en/sql-reference/statements/create-statements/create-resource-pool/built-pools/)>) resource pool usage.
 
-## Depot
+## Vertica Depot (Prometheus)
 
 `depot.json`
 

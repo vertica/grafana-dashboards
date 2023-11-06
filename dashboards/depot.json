@@ -1,4 +1,56 @@
 {
+  "__inputs": [],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "9.5.1"
+    },
+    {
+      "type": "panel",
+      "id": "heatmap",
+      "name": "Heatmap",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -45,8 +97,8 @@
   "panels": [
     {
       "datasource": {
-        "type": "vertica-grafana-datasource",
-        "uid": "US_55Cc4z"
+        "type": "prometheus",
+        "uid": "${datasource}"
       },
       "gridPos": {
         "h": 2,
@@ -69,11 +121,9 @@
       "targets": [
         {
           "datasource": {
-            "type": "vertica-grafana-datasource",
-            "uid": "US_55Cc4z"
+            "type": "prometheus",
+            "uid": "${datasource}"
           },
-          "format": "time_series",
-          "rawSql": "SELECT \n$__time(end_time), \naverage_cpu_usage_percent \nFROM \nv_monitor.cpu_usage \nWHERE \n$__timeFilter(end_time)",
           "refId": "A"
         }
       ],
@@ -82,10 +132,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -94,15 +140,6 @@
       },
       "id": 10,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Current Depot Usage",
       "type": "row"
     },
@@ -372,10 +409,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -384,15 +417,6 @@
       },
       "id": 64,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Depot Lookup Hits",
       "type": "row"
     },
@@ -601,10 +625,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -613,15 +633,6 @@
       },
       "id": 19,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Depots Fetches and Evictions",
       "type": "row"
     },
@@ -1014,10 +1025,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1026,15 +1033,6 @@
       },
       "id": 21,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Running/Queued Uploads from Depot to Communal",
       "type": "row"
     },
@@ -1437,10 +1435,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1449,15 +1443,6 @@
       },
       "id": 54,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Uploads from Depot to Communal",
       "type": "row"
     },
@@ -2034,7 +2019,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Depot",
+  "title": "Vertica Depot (Prometheus)",
   "uid": "vertica-depot",
   "version": 1,
   "weekStart": ""
