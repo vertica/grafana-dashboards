@@ -1,4 +1,50 @@
 {
+  "__inputs": [],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "9.5.1"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -45,8 +91,8 @@
   "panels": [
     {
       "datasource": {
-        "type": "vertica-grafana-datasource",
-        "uid": "US_55Cc4z"
+        "type": "prometheus",
+        "uid": "${datasource}"
       },
       "gridPos": {
         "h": 2,
@@ -69,11 +115,9 @@
       "targets": [
         {
           "datasource": {
-            "type": "vertica-grafana-datasource",
-            "uid": "US_55Cc4z"
+            "type": "prometheus",
+            "uid": "${datasource}"
           },
-          "format": "time_series",
-          "rawSql": "SELECT \n$__time(end_time), \naverage_cpu_usage_percent \nFROM \nv_monitor.cpu_usage \nWHERE \n$__timeFilter(end_time)",
           "refId": "A"
         }
       ],
@@ -82,10 +126,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -94,15 +134,6 @@
       },
       "id": 9,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Pool Configuration Values for $pool_name pool",
       "type": "row"
     },
@@ -558,10 +589,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -570,15 +597,6 @@
       },
       "id": 5,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Current Pool Usage Activity (in average per node) for $pool_name pool",
       "type": "row"
     },
@@ -972,10 +990,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -984,15 +998,6 @@
       },
       "id": 23,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Resource Pool Statistics (in average per node) for $pool_name pool",
       "type": "row"
     },
@@ -1488,10 +1493,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1500,15 +1501,6 @@
       },
       "id": 51,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Summary Tables",
       "type": "row"
     },
@@ -1772,10 +1764,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1784,15 +1772,6 @@
       },
       "id": 27,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Disk Storage Activity on node $node_name",
       "type": "row"
     },
@@ -1990,10 +1969,6 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2002,15 +1977,6 @@
       },
       "id": 41,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "refId": "A"
-        }
-      ],
       "title": "Storage Location Performance on node $node_name",
       "type": "row"
     },
@@ -2546,7 +2512,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Resource management",
+  "title": "Vertica Resource Management (Prometheus)",
   "uid": "vertica-resource-management",
   "version": 1,
   "weekStart": ""

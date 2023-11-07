@@ -6,7 +6,7 @@ Unless explicitly noted, all dashboards are compatible with new Vertica server v
 
 Some dashboards might use metrics that are available in specific Vertica versions. Review the [Prometheus metrics](https://docs.vertica.com/latest/en/admin/managing-db/https-service/prometheus-metrics/) to verify which metrics are available in each Vertica version.
 
-## Cluster Overview
+## Vertica Overview (Prometheus)
 
 `cluster-overview.json`
 
@@ -19,7 +19,7 @@ General cluster overview. This dashboard is designed to be the initial landing p
 - User and license information
 - Overall cluster health
 
-## Queries
+## Vertica Queries (Prometheus)
 
 `queries.json`
 
@@ -31,7 +31,7 @@ Detailed information about [queries](https://docs.vertica.com/latest/en/data-ana
 - Completed and failed queries, per node and per resource pool
 - User query type and execution time per type
 
-## Resource Management
+## Vertica Resource Management (Prometheus)
 
 `resource-management.json`
 
@@ -44,7 +44,7 @@ Details about [user-defined](https://docs.vertica.com/latest/en/sql-reference/st
 - Queued request thresholds and memory usage
 - Average running queries and their average execution time
 
-## Depot
+## Vertica Depot (Prometheus)
 
 `depot.json`
 
