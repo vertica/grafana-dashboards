@@ -27,6 +27,10 @@ General cluster overview. This dashboard is designed to be the initial landing p
 
 Detailed information about [queries](https://docs.vertica.com/latest/en/data-analysis/queries/) that are currently running in a cluster. This dashboard includes the following:
 
+- Total query request success and failure rate
+- Completed and failed queries, by node and by resource pool
+- User query type and execution time per type
+
 ## Vertica Resource Management (Prometheus)
 
 `resource-management.json`
