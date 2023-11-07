@@ -6,7 +6,7 @@ Unless explicitly noted, all dashboards are compatible with new Vertica server v
 
 Some dashboards might use metrics that are available in specific Vertica versions. Review the [Prometheus metrics](https://docs.vertica.com/latest/en/admin/managing-db/https-service/prometheus-metrics/) to verify which metrics are available in each Vertica version.
 
-## Cluster overview
+## Cluster Overview
 
 `cluster-overview.json`
 
@@ -31,7 +31,7 @@ Detailed information about [queries](https://docs.vertica.com/latest/en/data-ana
 - Completed and failed queries, per node and per resource pool
 - User query type and execution time per type
 
-## Resource management
+## Resource Management
 
 `resource-management.json`
 
