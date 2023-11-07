@@ -12,7 +12,7 @@ Some dashboards might use metrics that are available in specific Vertica version
 
 [![revision](https://img.shields.io/badge/revision-1-orange.svg)](https://example.com) [![release](https://img.shields.io/badge/release-1.0.0-green.svg)](https://github.com/vertica/grafana-dashboards/releases) [![Dashboard ID](https://img.shields.io/badge/Dashboard_ID-TBD-yellow.svg)](https://grafana.com/grafana/dashboards/?search=TBD) [![Vertica compatibility](https://img.shields.io/badge/Vertica-v23.3.0-blue.svg)](https://docs.vertica.com/latest/en/)
 
-General cluster overview. This dashboard is designed to be the initial landing page in Grafana that displays the following:
+General cluster overview. This dashboard is designed to be the initial landing page in Grafana. This dashboard includes the following:
 
 - Total number of nodes and their state, data size, and disk usage
 - Query request and processing statistics
@@ -25,10 +25,10 @@ General cluster overview. This dashboard is designed to be the initial landing p
 
 [![revision](https://img.shields.io/badge/revision-1-orange.svg)](https://example.com) [![release](https://img.shields.io/badge/release-1.0.0-green.svg)](https://github.com/vertica/grafana-dashboards/releases) [![Dashboard ID](https://img.shields.io/badge/Dashboard_ID-TBD-yellow.svg)](https://img.shields.io/badge/Dashboard_ID-TBD-yellow.svg) [![Vertica compatibility](https://img.shields.io/badge/Vertica-v23.3.0-blue.svg)](https://docs.vertica.com/latest/en/)
 
-Detailed information about [queries](https://docs.vertica.com/latest/en/data-analysis/queries/) that are currently running in a cluster, including the following:
+Detailed information about [queries](https://docs.vertica.com/latest/en/data-analysis/queries/) that are currently running in a cluster. This dashboard includes the following:
 
 - Total query request success and failure rate
-- Completed and failed queries, by node and by resource pool
+- Completed and failed queries, per node and per resource pool
 - User query type and execution time per type
 
 ## Resource management
@@ -37,10 +37,10 @@ Detailed information about [queries](https://docs.vertica.com/latest/en/data-ana
 
 [![revision](https://img.shields.io/badge/revision-1-orange.svg)](https://example.com) [![release](https://img.shields.io/badge/release-1.0.0-green.svg)](https://github.com/vertica/grafana-dashboards/releases) [![Dashboard ID](https://img.shields.io/badge/Dashboard_ID-TBD-yellow.svg)](https://img.shields.io/badge/Dashboard_ID-TBD-yellow.svg) [![Vertica compatibility](https://img.shields.io/badge/Vertica-v23.3.0-blue.svg)](https://docs.vertica.com/latest/en/)
 
-Details about [user-defined](https://docs.vertica.com/latest/en/sql-reference/statements/create-statements/create-resource-pool/) and [built-in](<(https://docs.vertica.com/latest/en/sql-reference/statements/create-statements/create-resource-pool/built-pools/)>) resource pool usage, including the following:
+Details about [user-defined](https://docs.vertica.com/latest/en/sql-reference/statements/create-statements/create-resource-pool/) and [built-in](<(https://docs.vertica.com/latest/en/sql-reference/statements/create-statements/create-resource-pool/built-pools/)>) resource pool usage. This dashboard includes the following:
 
 - Pool configuration values
-- Current pool memory usage, query activity, and queued requests statistics per node
+- Per node pool memory usage, query activity, and queued requests statistics
 - Queued request thresholds and memory usage
 - Average running queries and their average execution time
 
@@ -50,7 +50,7 @@ Details about [user-defined](https://docs.vertica.com/latest/en/sql-reference/st
 
 [![revision](https://img.shields.io/badge/revision-1-orange.svg)](https://example.com) [![release](https://img.shields.io/badge/release-1.0.0-green.svg)](https://github.com/vertica/grafana-dashboards/releases) [![Dashboard ID](https://img.shields.io/badge/Dashboard_ID-TBD-yellow.svg)](https://img.shields.io/badge/Dashboard_ID-TBD-yellow.svg) [![Vertica compatibility](https://img.shields.io/badge/Vertica-v23.3.0-blue.svg)](https://docs.vertica.com/latest/en/)
 
-Details about [depot](https://docs.vertica.com/latest/en/eon/depot-management/) usage, including the following:
+Details about [depot](https://docs.vertica.com/latest/en/eon/depot-management/) usage. This dashboard includes the following:
 
 - Current usage
 - Lookup hits
