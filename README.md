@@ -37,7 +37,7 @@ Detailed information about [queries](https://docs.vertica.com/latest/en/data-ana
 
 [![revision](https://img.shields.io/badge/revision-1-orange.svg)](https://example.com) [![release](https://img.shields.io/badge/release-1.0.0-green.svg)](https://github.com/vertica/grafana-dashboards/releases) [![Dashboard ID](https://img.shields.io/badge/Dashboard_ID-TBD-yellow.svg)](https://img.shields.io/badge/Dashboard_ID-TBD-yellow.svg) [![Vertica compatibility](https://img.shields.io/badge/Vertica-v23.3.0-blue.svg)](https://docs.vertica.com/latest/en/)
 
-Details about [user-defined](https://docs.vertica.com/latest/en/sql-reference/statements/create-statements/create-resource-pool/) and [built-in](<(https://docs.vertica.com/latest/en/sql-reference/statements/create-statements/create-resource-pool/built-pools/)>) resource pool usage. This dashboard includes the following:
+Details about [user-defined](https://docs.vertica.com/latest/en/sql-reference/statements/create-statements/create-resource-pool/) and [built-in](https://docs.vertica.com/latest/en/sql-reference/statements/create-statements/create-resource-pool/built-pools/) resource pool usage. This dashboard includes the following:
 
 - Pool configuration values
 - Per node pool memory usage, query activity, and queued requests statistics
