@@ -18,6 +18,7 @@ This dashboard includes the following:
 
 - Total number of nodes and their state, data size, and disk usage
 - Query request and processing statistics
+- Number of errors
 - User and license information
 - Overall cluster health
 
@@ -32,6 +33,7 @@ Detailed information about [queries](https://docs.vertica.com/latest/en/data-ana
 This dashboard includes the following:
 
 - Total query request success and failure rate
+- Running and queued queries, by node and by resource pool
 - Completed and failed queries, by node and by resource pool
 - User query type and execution time per type
 
@@ -46,9 +48,9 @@ Details about [user-defined](https://docs.vertica.com/latest/en/sql-reference/st
 This dashboard includes the following:
 
 - Pool configuration values
-- Per node pool memory usage, query activity, and queued requests statistics
-- Queued request thresholds and memory usage
-- Average running queries and their average execution time
+- Per node pool usage activity and statistics
+- Per node disk storage state
+- Per node storage location performance
 
 ## Vertica Depot (Prometheus)
 
